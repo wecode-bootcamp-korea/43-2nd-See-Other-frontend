@@ -3,17 +3,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 
+// import 한 컴포넌트에 대한 경로를 각각 설정해줍니다.
 const Router = () => {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login-code" element={<LoginCode />} />
-          <Route path="/main-code" element={<MainCode />} />
-          <Route path="/login-gaebal" element={<LoginGaebal />} />
-          <Route path="/main-gaebal" element={<MainGaebal />} />
-        </Routes>
-      </BrowserRouter>
-    );
-  };
-  
-  export default Router;
+  return (
+    <BrowserRouter>
+      <Routes>
+        
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default Router;
