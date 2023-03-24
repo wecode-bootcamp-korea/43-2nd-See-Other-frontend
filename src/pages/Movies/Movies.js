@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Movies = () => {
-  return;
+  return <div>Movies</div>;
 };
 
 export default Movies;

@@ -5,9 +5,12 @@ const IcoMovie = styled.span`
   overflow: hidden;
   font-size: 0;
   line-height: 0;
-  background: url(../../public/images/IcoMovie.svg) no-repeat;
+  background: url(../../images/IcoMovie.svg) no-repeat;
   text-indent: -9999px;
   vertical-align: top;
+  width: ${props => props.width};
+  height: ${props => props.height};
+  background-position: ${props => props.backgroundPosition};
 `;
 const ScreenOut = styled.strong`
   overflow: hidden;
