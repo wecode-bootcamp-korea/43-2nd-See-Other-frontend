@@ -128,6 +128,7 @@ const BookingBtn = styled.a`
   line-height: 15px;
   color: #fff;
   text-decoration: none;
+  font-weight: 400;
 `;
 
 const FOOTER_INFO_LIST = [
