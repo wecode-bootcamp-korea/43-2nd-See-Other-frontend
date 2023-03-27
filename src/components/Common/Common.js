@@ -18,6 +18,7 @@ const IcoMovie = styled.span`
   margin: ${props => props.margin};
   background-position: ${props => props.backgroundPosition};
 `;
+
 const ScreenOutBase = css`
   overflow: hidden;
   position: absolute;
