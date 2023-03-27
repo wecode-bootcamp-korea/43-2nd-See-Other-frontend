@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Account from './pages/Account/Account';
 import Ticket from './pages/Ticket/Ticket';
+import Detail from './components/Detail/Detail';
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/account" element={<Account />} />
         <Route path="/ticket" element={<Ticket />} />
+        <Route path="/detail" element={<Detail />} />
       </Routes>
       <Footer />
     </BrowserRouter>
