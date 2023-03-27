@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import CsCenter from './CsCenter/CsCenter';
 import Common from '../../components/Common/Common';
 import styled from 'styled-components';
 
-const QuickMenu = () => {
+const QuickMenu = ({ name, grade, cinema, theater, date, time }) => {
   const { ImgGobal, IcoMovie } = Common;
 
   return (
@@ -17,23 +17,25 @@ const QuickMenu = () => {
             <ImgGobal src="../../images/pooh.png" alt="영화이미지" />
           </ImgWrap>
           <ImgDetail>
-            <span>웅남이</span>
-            <span>SCREENX 2D</span>
-            <span>19세 관람가</span>
+            <span>{name}</span>
+            <span>{name && `${grade}세 관람가`}</span>
           </ImgDetail>
         </MovieWrap>
         <InfoTicket>
           <TicketBox>
             <TitTicket>극장 : </TitTicket>
-            <TxtTicket>CGV 구로</TxtTicket>
+            <TxtTicket>{cinema && `CGV ${cinema}`}</TxtTicket>
           </TicketBox>
           <TicketBox>
             <TitTicket>일시 : </TitTicket>
-            <TxtTicket>2023.3.31(금)11:00</TxtTicket>
+            <TxtTicket>
+              {date.toString()}&nbsp;
+              {time}
+            </TxtTicket>
           </TicketBox>
           <TicketBox>
             <TitTicket>상영관 : </TitTicket>
-            <TxtTicket>1관 SCREENX 6층</TxtTicket>
+            <TxtTicket> {theater} </TxtTicket>
           </TicketBox>
           <TicketBox>
             <TitTicket>인원 : </TitTicket>
@@ -72,7 +74,6 @@ const QuickMenu = () => {
     </TotalWrap>
   );
 };
-
 const TotalWrap = styled.div`
   background-color: #222;
   height: 128px;
@@ -91,6 +92,7 @@ const InnerTotal = styled.div`
 
 const MovieWrap = styled.div`
   display: flex;
+  width: 180px;
   padding: 10px;
 `;
 
@@ -136,5 +138,20 @@ const TitTicket = styled.div`
 `;
 
 const TxtTicket = styled.div``;
+
+// TODO: payment layout
+// const InfoPayment = styled.div`
+//   width: 155px;
+//   font-size: 12px;
+//   display: flex;
+//   flex-direction: column;
+//   border: 1px solid #a0a0a0;
+//   border-bottom: none;
+//   border-top: none;
+// `;
+
+// const PaymentBox = styled.div`
+//   padding: 30px 0;
+// `;
 
 export default QuickMenu;
