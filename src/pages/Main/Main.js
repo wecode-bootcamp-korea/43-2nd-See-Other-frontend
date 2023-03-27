@@ -1,7 +1,8 @@
 import React from 'react';
+import CsCenter from './CsCenter/CsCenter';
 
 const Main = () => {
-  return <div>ddd</div>;
+  return <CsCenter />;
 };
 
 export default Main;
