@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../Common/Common';
 
-const Movie = props => {
+const Movie = ({
+  id,
+  koreanName,
+  averageRate,
+  handleModal,
+  setSaveId,
+  grade,
+  reservationRate,
+  hallTypes,
+  index,
+}) => {
   const { ImgGobal, ScreenOut, IcoMovie } = Common;
-  const { title, handleModal } = props;
+  const [bradebackgroundPosition, setBradebackgroundPosition] = useState('');
+
+  useEffect(() => {
+    if (grade >= 19) {
+      setBradebackgroundPosition('-60px -60px');
+    } else if (grade === 15) {
+      setBradebackgroundPosition('-30px -60px');
+    } else {
+      setBradebackgroundPosition('0px -60px');
+    }
+  }, [grade]);
 
   return (
     <CardMovie>
@@ -15,7 +35,7 @@ const Movie = props => {
             <IcoMovie
               width="20px"
               height="20px"
-              backgroundPosition="0px -60px"
+              backgroundPosition={bradebackgroundPosition}
             />
           </BadgeGrade>
           <ImgGobal
@@ -24,14 +44,18 @@ const Movie = props => {
           />
         </BunchThumb>
         <EmphMovie>
-          1<ScreenOut>위</ScreenOut>
+          {index + 1}
+          <ScreenOut>위</ScreenOut>
         </EmphMovie>
         <GroupMovie>
           <BtnMovie
             as="button"
             backgroundcolor="#fff"
             color="#222"
-            onClick={handleModal}
+            onClick={() => {
+              handleModal();
+              setSaveId(id);
+            }}
           >
             상세보기
           </BtnMovie>
@@ -42,7 +66,7 @@ const Movie = props => {
       </WrapMovie>
       <TitName>
         <ScreenOut as="span">영화 명 : </ScreenOut>
-        {title}
+        {koreanName}
       </TitName>
       <WrapInfo>
         <TxtScore>
@@ -52,15 +76,16 @@ const Movie = props => {
             backgroundPosition="-100px -40px"
             margin="1px 4px 0 0"
           >
-            만족도 :
+            평점 :
           </IcoMovie>
-          79%
+          {averageRate}
         </TxtScore>
-        <TxtRating>예매율 0.6%</TxtRating>
+        <TxtRating>예매율 {reservationRate}%</TxtRating>
       </WrapInfo>
       <WrapBadge>
-        <BadgeMovie>IMAX</BadgeMovie>
-        <BadgeMovie>4DX</BadgeMovie>
+        {hallTypes.map((hallTypes, idx) => {
+          return <BadgeMovie key={idx}>{hallTypes}</BadgeMovie>;
+        })}
       </WrapBadge>
     </CardMovie>
   );
@@ -101,7 +126,7 @@ const GroupMovie = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.4);
   flex-direction: column;
   justify-content: center;
   border-radius: 10px;

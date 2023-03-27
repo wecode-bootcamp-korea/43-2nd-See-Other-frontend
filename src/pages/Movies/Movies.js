@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import SelectOption from '../../components/SelectOption/SelectOption';
 import CardMovie from '../../components/Movie/Movie';
-import Detail from '../../components/Detail/Detail';
+// import Detail from '../../components/Detail/Detail';
+import DetaiModal from '../Detailmodal/detaiModal';
+
 import styled from 'styled-components';
 import Common from '../../components/Common/Common';
 
@@ -11,6 +13,7 @@ const Movies = () => {
   const [movieList, setMovieList] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [saveId, setSaveId] = useState('1');
 
   const handelCheck = e => {
     setIsChecked(e.target.checked);
@@ -21,12 +24,15 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/albums', {
+    fetch('/data/movieChat.json', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
+      },
     })
       .then(res => res.json())
       .then(data => {
-        setMovieList(data);
+        setMovieList(data.movieList);
       });
   }, []);
 
@@ -59,20 +65,42 @@ const Movies = () => {
             <TxtMovie>현재 상영작만 보기</TxtMovie>
           </CheckBox>
           <GroupSelect>
-            <SelectOption list={SELECT_LIST} />
+            <SelectOption
+              list={SELECT_LIST}
+              movieList={movieList}
+              setMovieList={setMovieList}
+            />
           </GroupSelect>
         </WrapUtil>
         <WrapMovie>
-          {movieList.map(({ id, title }) => {
+          {movieList.map((list, index) => {
             return (
-              <Li key={id}>
-                <CardMovie title={title} handleModal={handleModal} />
+              <Li key={list.id}>
+                <CardMovie
+                  {...list}
+                  index={index}
+                  handleModal={handleModal}
+                  setSaveId={setSaveId}
+                />
               </Li>
             );
           })}
         </WrapMovie>
       </SubContents>
-      {isOpenModal && <Detail setIsOpenModal={setIsOpenModal} />}
+      {/* TODO: feature/Moive branc가 main에 rebase/merge되면 추가될 부분 */}
+      {movieList.map(modal => {
+        return (
+          modal.id === saveId && (
+            <DetaiModal
+              setIsOpenModal={setIsOpenModal}
+              isOpenModal={isOpenModal}
+              id={modal.id}
+              key={modal.id}
+              {...modal}
+            />
+          )
+        );
+      })}
     </>
   );
 };
@@ -170,6 +198,7 @@ const Li = styled.li`
   padding: 50px 0 50px 20px;
   vertical-align: top;
 `;
+
 const SELECT_LIST = [
   { id: 1, value: '예매율순' },
   { id: 2, value: '평점순' },

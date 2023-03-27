@@ -27,6 +27,34 @@
       "closingDate": "2023.4.17",
       "movieStatusesId": 2,
       "hallTypes": ["Cine de Chef", "Suite Cinema", "Standard"]
+    },
+    {
+      "id": 3,
+      "name": "metropolis",
+      "koreanName": "거리에서",
+      "summary": "대충 메트로폴리스 줄거리인 것",
+      "averageRate": "4.5",
+      "grade": 15,
+      "reservationRate": "40.0",
+      "runningTime": 120,
+      "openingDate": "2023.4.2",
+      "closingDate": "2023.4.17",
+      "movieStatusesId": 2,
+      "hallTypes": ["Cine de Chef"]
+    },
+    {
+      "id": 4,
+      "name": "metropolis",
+      "koreanName": "시네마",
+      "summary": "대충 메트로폴리스 줄거리인 것",
+      "averageRate": "3.3",
+      "grade": 14,
+      "reservationRate": "55.0",
+      "runningTime": 120,
+      "openingDate": "2023.4.2",
+      "closingDate": "2023.4.17",
+      "movieStatusesId": 2,
+      "hallTypes": ["Cine de Chef"]
     }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "data": [
+    [
+      { "id": 1, "name": "기철이", "grade": 15 },
+      { "id": 2, "name": "거리에서", "grade": 19 },
+      { "id": 3, "name": "스즈메의 문단속", "grade": 12 }
+    ],
+    [
+      { "id": 1, "region": "서울", "cinema": ["강남", "강북"] },
+      { "id": 2, "region": "경기", "cinema": ["일산", "성남"] }
+    ],
+    [
+      {
+        "id": 1,
+        "cinema": "강남",
+        "theater": ["일반", "IMAX", "CINE de CHEIF", "SUITE CINEMA"]
+      },
+      { "id": 2, "cinema": "강북", "theater": ["일반", "IMAX"] },
+      {
+        "id": 3,
+        "cinema": "일산",
+        "theater": ["일반", "IMAX", "SUITE CINEMA"]
+      },
+      {
+        "id": 4,
+        "cinema": "성남",
+        "theater": ["일반", "CINE de CHEIF", "SUITE CINEMA"]
+      }
+    ],
+    [{ "날짜": ["2023.04.07", "2023.04.08", "2023.04.09"] }]
+  ]
+}

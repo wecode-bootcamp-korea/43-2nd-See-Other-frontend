@@ -1,12 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SelectOption = ({ list }) => {
+const SelectOption = ({ list, setMovieList, movieList }) => {
+  const sortMovies = e => {
+    if (e.target.value === '예매율순') {
+      const sortedList = [...movieList].sort(
+        (a, b) => Number(a.reservationRate) - Number(b.reservationRate)
+      );
+      setMovieList(sortedList);
+    }
+    if (e.target.value === '평점순') {
+      const sortedList = [...movieList].sort(
+        (a, b) => Number(a.averageRate) - Number(b.averageRate)
+      );
+      setMovieList(sortedList);
+    }
+  };
+
   return (
     <section>
-      <SelectGroup>
+      <SelectGroup onChange={sortMovies}>
         {list.map(({ id, value }) => {
-          return <option key={id}>{value}</option>;
+          return (
+            <option key={id} value={value}>
+              {value}
+            </option>
+          );
         })}
       </SelectGroup>
       <SelectBtn>GO</SelectBtn>
