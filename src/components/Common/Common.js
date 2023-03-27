@@ -10,6 +10,7 @@ const IcoMovie = styled.span`
   vertical-align: top;
   width: ${props => props.width};
   height: ${props => props.height};
+  margin: ${props => props.margin};
   background-position: ${props => props.backgroundPosition};
 `;
 const ScreenOut = styled.strong`
