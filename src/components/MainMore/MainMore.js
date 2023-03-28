@@ -22,10 +22,12 @@ const LinkMore = styled(Link)`
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 14px;
   text-decoration: none;
   color: #888;
+  border: 1px solid #dedede;
+  border-radius: 20px;
 `;
 
 export default MainMore;
