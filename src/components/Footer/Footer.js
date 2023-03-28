@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import SelectOption from '../SelectOption/SelectOption';
 
 const Footer = () => {
   return (
@@ -19,10 +20,10 @@ const Footer = () => {
               <CompanyInfoList key={id}>
                 {list.map(({ value, title, content }) => {
                   return (
-                    <>
-                      <CompanyInfoTitle key={value}>{title}</CompanyInfoTitle>
+                    <React.Fragment key={value}>
+                      <CompanyInfoTitle>{title}</CompanyInfoTitle>
                       <CompanyInfoContent>{content}</CompanyInfoContent>
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </CompanyInfoList>
@@ -30,14 +31,7 @@ const Footer = () => {
           })}
           <p>&copy;SeeOther. All Rights Reserved</p>
         </section>
-        <section>
-          <Familysite>
-            {FAMILY_SITE_LIST.map(({ id, list }) => {
-              return <option key={id}>{list}</option>;
-            })}
-          </Familysite>
-          <FamilyBtn>GO</FamilyBtn>
-        </section>
+        <SelectOption list={FAMILY_SITE_LIST} />
       </CompanyInfoWrap>
       <FloatingBtnWrap>
         <BookingBtn href="/ticket">예매하기</BookingBtn>
@@ -51,6 +45,7 @@ export default Footer;
 const FooterContainer = styled.footer`
   width: 100%;
   padding: 50px 0;
+  margin-top: 100px;
   background-color: #f8f8f8;
   font-size: 13px;
 `;
@@ -89,27 +84,6 @@ const CompanyInfoContent = styled.dd`
     content: ',';
     margin-right: 7px;
   }
-`;
-
-const Familysite = styled.select`
-  position: relative;
-  padding: 0 50px 0 10px;
-  height: 34px;
-  line-height: 34px;
-  background-color: transparent;
-  border: 1px solid #d8d8d8;
-`;
-
-const FamilyBtn = styled.button`
-  position: absolute;
-  height: 34px;
-  width: 36px;
-  line-height: 34px;
-  padding: 0;
-  margin-left: 2px;
-  background-color: #9e9e9e;
-  border: none;
-  color: #fff;
 `;
 
 const FloatingBtnWrap = styled.div`
@@ -181,8 +155,8 @@ const COMPANY_INFO_LIST = [
 ];
 
 const FAMILY_SITE_LIST = [
-  { id: 1, list: 'wevre' },
-  { id: 1, list: 'comebackhome' },
-  { id: 1, list: 'finding-maewha' },
-  { id: 1, list: 'comics-trip' },
+  { id: 1, value: 'wevre' },
+  { id: 2, value: 'comebackhome' },
+  { id: 3, value: 'finding-maewha' },
+  { id: 4, value: 'comics-trip' },
 ];
