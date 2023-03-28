@@ -1,0 +1,32 @@
+{
+  "movieList": [
+    {
+      "id": 1,
+      "name": "the kid",
+      "koreanName": "더 키드",
+      "summary": "대충 더 키드 줄거리처럼 보이는 글",
+      "averageRate": "4.0",
+      "grade": 12,
+      "reservationRate": "20.0",
+      "runningTime": 120,
+      "openingDate": "2023.4.2",
+      "closingDate": "2023.4.8",
+      "movieStatusesId": 2,
+      "hallTypes": ["IMAX", "Standard", "Cine de Chef"]
+    },
+    {
+      "id": 2,
+      "name": "metropolis",
+      "koreanName": "메트로폴리스",
+      "summary": "대충 메트로폴리스 줄거리인 것",
+      "averageRate": "3.0",
+      "grade": 19,
+      "reservationRate": "30.0",
+      "runningTime": 120,
+      "openingDate": "2023.4.2",
+      "closingDate": "2023.4.17",
+      "movieStatusesId": 2,
+      "hallTypes": ["Cine de Chef", "Suite Cinema", "Standard"]
+    }
+  ]
+}

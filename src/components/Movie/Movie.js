@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../Common/Common';
 
-const Movie = () => {
+const Movie = props => {
   const { ImgGobal, ScreenOut, IcoMovie } = Common;
+  const { title, handleModal } = props;
+
   return (
     <CardMovie>
       <WrapMovie>
@@ -25,7 +27,12 @@ const Movie = () => {
           1<ScreenOut>위</ScreenOut>
         </EmphMovie>
         <GroupMovie>
-          <BtnMovie as="button" backgroundcolor="#fff" color="#222">
+          <BtnMovie
+            as="button"
+            backgroundcolor="#fff"
+            color="#222"
+            onClick={handleModal}
+          >
             상세보기
           </BtnMovie>
           <BtnMovie to="/Ticket" backgroundcolor="#FA4357" color="#fff">
@@ -35,7 +42,7 @@ const Movie = () => {
       </WrapMovie>
       <TitName>
         <ScreenOut as="span">영화 명 : </ScreenOut>
-        일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십
+        {title}
       </TitName>
       <WrapInfo>
         <TxtScore>
