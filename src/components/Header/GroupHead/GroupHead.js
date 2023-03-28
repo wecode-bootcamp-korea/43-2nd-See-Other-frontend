@@ -19,9 +19,9 @@ const SeoGroupHead = ({ isFixed }) => {
         </IcoMovie>
         <ScreenOut as="h2">see other 메인 메뉴</ScreenOut>
         <ListMenu>
-          {CATE_MENU.map(({ id, menu }) => (
+          {CATE_MENU.map(({ id, menu, link }) => (
             <li key={id}>
-              <LinkMenu to="/Movies" isFixed={isFixed}>
+              <LinkMenu to={link} isFixed={isFixed}>
                 {menu === '예매' ? (
                   <EmphMenu isFixed={isFixed}>예매</EmphMenu>
                 ) : (
@@ -82,6 +82,7 @@ const BunchHead = styled.div`
   display: flex;
   align-items: center;
   width: 980px;
+  min-width: 980px;
   margin: 0 auto;
 `;
 
