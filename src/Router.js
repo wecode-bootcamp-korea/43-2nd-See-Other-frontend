@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Account from './pages/Account/Account';
+import Movies from './pages/Movies/Movies';
 import Ticket from './pages/Ticket/Ticket';
 import Detail from './components/Detail/Detail';
 
@@ -14,6 +15,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/movies" element={<Movies />} />
         <Route path="/ticket" element={<Ticket />} />
         <Route path="/detail" element={<Detail />} />
       </Routes>

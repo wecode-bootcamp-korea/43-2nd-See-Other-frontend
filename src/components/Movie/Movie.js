@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../Common/Common';
 
-const Movie = () => {
+const Movie = props => {
   const { ImgGobal, ScreenOut, IcoMovie } = Common;
+  const { title, handleModal } = props;
+
   return (
     <CardMovie>
       <WrapMovie>
@@ -18,7 +20,12 @@ const Movie = () => {
           1<ScreenOut>위</ScreenOut>
         </EmphMovie>
         <GroupMovie>
-          <BtnMovie as="button" backgroundcolor="#fff" color="#222">
+          <BtnMovie
+            as="button"
+            backgroundcolor="#fff"
+            color="#222"
+            onClick={handleModal}
+          >
             상세보기
           </BtnMovie>
           <BtnMovie to="/Ticket" backgroundcolor="#FA4357" color="#fff">
@@ -28,7 +35,7 @@ const Movie = () => {
       </WrapMovie>
       <TitName>
         <ScreenOut as="span">영화 명 : </ScreenOut>
-        일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십
+        {title}
       </TitName>
       <WrapInfo>
         <TxtScore>
@@ -76,14 +83,16 @@ const BunchThumb = styled.span`
 
 const GroupMovie = styled.div`
   display: none;
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, , 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   flex-direction: column;
   justify-content: center;
+  border-radius: 10px;
 `;
 
 const EmphMovie = styled.em`
@@ -142,7 +151,7 @@ const BtnMovie = styled(Link)`
 const TitName = styled.strong`
   overflow: hidden;
   display: block;
-  margin-top: 7px;
+  margin-top: 15px;
   font-size: 16px;
   color: #222;
   line-height: 25px;
@@ -188,10 +197,10 @@ const WrapBadge = styled.span`
 const BadgeMovie = styled.span`
   display: block;
   margin: 0 2px;
-  padding: 1px 2px;
+  padding: 3px 6px;
   font-size: 11px;
   color: #222;
-  border: 1px solid #888;
+  border: 1px solid #ddd;
   border-radius: 2px;
 `;
 
