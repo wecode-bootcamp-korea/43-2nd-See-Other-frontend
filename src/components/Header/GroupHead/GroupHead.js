@@ -61,12 +61,12 @@ const GroupHead = styled.div`
   background-image: #fff;
   height: 50px;
   margin: 0 auto;
-
   &.fixed {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 20;
     border-color: #fb4357;
     background-image: linear-gradient(
       to right,
