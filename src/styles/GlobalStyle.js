@@ -1,9 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-
 const GlobalStyle = createGlobalStyle`
   ${reset}
-	html,
+  html,
   body {
     min-width: 1040px;
     min-height: 100%;
@@ -18,5 +17,4 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 `;
-
 export default GlobalStyle;

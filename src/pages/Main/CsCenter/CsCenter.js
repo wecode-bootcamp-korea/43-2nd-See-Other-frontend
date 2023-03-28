@@ -60,10 +60,12 @@ const BoxInfo = styled.div`
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
+  align-items: stretch;
 `;
 
 const GroupInfo = styled.div`
   display: flex;
+  align-items: center;
   width: 738px;
   border: 1px solid #dedede;
   padding: 24px 26px 20px 40px;

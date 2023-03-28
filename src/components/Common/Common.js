@@ -1,10 +1,8 @@
 import styled, { css } from 'styled-components';
-
 const ImgGobal = styled.img`
   display: block;
   width: 100%;
 `;
-
 const IcoMovie = styled.span`
   display: inline-block;
   overflow: hidden;
@@ -17,9 +15,7 @@ const IcoMovie = styled.span`
   height: ${props => props.height};
   margin: ${props => props.margin};
   background-position: ${props => props.backgroundPosition};
-  margin: ${props => props.margin};
 `;
-
 const ScreenOutBase = css`
   overflow: hidden;
   position: absolute;
@@ -28,7 +24,6 @@ const ScreenOutBase = css`
   line-height: 0;
   text-indent: -9999px;
 `;
-
 const ScreenOut = styled.strong`
   ${({ as }) => {
     switch (as) {
@@ -41,7 +36,6 @@ const ScreenOut = styled.strong`
     }
   }}
 `;
-
 const IrPmBase = css`
   display: block;
   overflow: hidden;
@@ -49,7 +43,6 @@ const IrPmBase = css`
   line-height: 0;
   text-indent: -9999px;
 `;
-
 const IrPm = styled.strong`
   ${({ as }) => {
     switch (as) {
@@ -66,12 +59,10 @@ const IrPm = styled.strong`
     }
   }}
 `;
-
 const Common = {
   ImgGobal,
   IcoMovie,
   ScreenOut,
   IrPm,
 };
-
 export default Common;
