@@ -1,38 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Common from '../../Common/Common';
 
-const FormReview = ({ ratingStar, setScore, score }) => {
+const FormReview = ({ onSubmit }) => {
   const { IcoMovie } = Common;
+  const [content, setContent] = useState(''); // 댓글내용
+  const [author, setAuthor] = useState(''); // 유저아이디
+  const [rating, setRating] = useState(0); // 별점
+
+  // 별점 버튼 클릭 시 rating state를 업데이트한다.
+  const handleRatingClick = value => {
+    setRating(value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit({ content, author });
+    setContent('');
+    setRating(0);
+  };
+
   return (
-    <section>
-      <ReviewFrom onClick={e => e.stopPropagation()}>
-        <ReviewTitle>
-          관람일 포함 7일 이내 관람평을 남기시면 CJ ONE 20P가 적립됩니다.
-        </ReviewTitle>
-        <Test>
-          {ratingStar.map((el, idx) => {
-            return (
-              <button type="button">
-                <IcoMovie
-                  key={idx}
-                  height="18px"
-                  width="18px"
-                  backgroundPosition={
-                    el + idx <= score ? '-60px 0px' : '-80px 0px'
-                  }
-                  onClick={() => {
-                    setScore(el + idx);
-                  }}
-                />
-              </button>
-            );
-          })}
-          <ReviewInput type="text" placeholder="댓글과 평점을 입력해주세요" />
-          <ReviewBtn type="button">등록</ReviewBtn>
-        </Test>
-      </ReviewFrom>
-    </section>
+    <ReviewFrom onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
+      <ReviewTitle>
+        관람일 포함 7일 이내 관람평을 남기시면 CJ ONE 20P가 적립됩니다.
+      </ReviewTitle>
+      <Test>
+        {[1, 2, 3, 4, 5].map(value => (
+          <button
+            type="button"
+            key={value}
+            value={value}
+            onClick={() => handleRatingClick(value)}
+          >
+            <IcoMovie
+              height="18px"
+              width="18px"
+              backgroundPosition={rating >= value ? '-60px 0' : '-80px 0'}
+            />
+          </button>
+        ))}
+        <ReviewInput
+          type="text"
+          placeholder="댓글과 평점을 입력해주세요"
+          id="content"
+          value={content}
+          onChange={e => setContent(e.target.value)}
+        />
+        <ReviewBtn type="submit">등록</ReviewBtn>
+      </Test>
+    </ReviewFrom>
   );
 };
 
