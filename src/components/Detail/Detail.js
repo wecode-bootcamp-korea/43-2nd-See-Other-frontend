@@ -7,23 +7,27 @@ import Common from '../Common/Common';
 
 const Detail = ({ setIsOpenModal }) => {
   const { IcoMovie } = Common;
-
-  const rating = 4;
-
-  const ratingStar = new Array(5).fill(1);
-  const [score, setScore] = useState(0);
-
+  const [comments, setComments] = useState([]);
+  const handleSubmit = newComment => {
+    // 새로운 댓글을 추가
+    setComments([...comments, newComment]);
+  };
   return (
     <DetailBg
       onClick={() => {
         setIsOpenModal(prev => !prev);
       }}
     >
-      <MovieDetail>
-        <Movie ratingStar={ratingStar} rating={rating} />
-        <FormReview ratingStar={ratingStar} setScore={setScore} score={score} />
-        <ListReview />
-        <BtnClose type="button">
+      <MovieDetail onClick={e => e.stopPropagation()}>
+        <Movie />
+        <FormReview onSubmit={handleSubmit} />
+        <ListReview comments={comments} />
+        <BtnClose
+          type="button"
+          onClick={() => {
+            setIsOpenModal(prev => !prev);
+          }}
+        >
           <IcoMovie
             height="16px"
             width="18px"

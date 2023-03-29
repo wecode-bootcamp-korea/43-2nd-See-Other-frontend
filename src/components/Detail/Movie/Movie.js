@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Common from '../../Common/Common';
 
-const Movie = ({ ratingStar, rating }) => {
+const Movie = () => {
   const { IcoMovie, ScreenOut } = Common;
   return (
     <MovieInfo onClick={e => e.stopPropagation()}>
@@ -15,18 +15,11 @@ const Movie = ({ ratingStar, rating }) => {
         <RateGroup>
           <p>예매율 : 98%</p>
           <div>
-            {ratingStar.map((el, idx) => {
-              return (
-                <IcoMovie
-                  key={idx}
-                  height="18px"
-                  width="18px"
-                  backgroundPosition={
-                    el + idx <= rating ? '-60px 0px' : '-80px 0px'
-                  }
-                />
-              );
-            })}
+            <IcoMovie
+              height="18px"
+              width="18px"
+              backgroundPosition="-80px 0px"
+            />
           </div>
         </RateGroup>
         <Summary>
