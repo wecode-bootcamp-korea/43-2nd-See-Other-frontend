@@ -1,12 +1,21 @@
 import React from 'react';
-// import CsCenter from './CsCenter/CsCenter';
-import { Link } from 'react-router-dom';
-import QuickMenu from '../QuickMenu/QuickMenu';
-import Common from '../../components/Common/Common';
 import styled from 'styled-components';
+import Seat from './Seat/Seat';
+import QuickMenu from '../QuickMenu/QuickMenu';
 
 const Ticket = () => {
-  return <QuickMenu />;
+  return (
+    <TicketWrap>
+      <Seat />
+      <QuickMenu />
+    </TicketWrap>
+  );
 };
 
+const TicketWrap = styled.div`
+  background-color: #f2f0e4;
+  width: 996px;
+  height: 600px;
+  margin: 0 auto;
+`;
 export default Ticket;
