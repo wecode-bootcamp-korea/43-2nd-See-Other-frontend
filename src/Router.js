@@ -6,6 +6,7 @@ import Main from './pages/Main/Main';
 import Account from './pages/Account/Account';
 import Ticket from './pages/Ticket/Ticket';
 import Detail from './components/Detail/Detail';
+import Kakao from './pages/Account/component/Kakao';
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
         <Route path="/account" element={<Account />} />
         <Route path="/ticket" element={<Ticket />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/oauth/callback/kakao" element={<Kakao />} />
       </Routes>
       <Footer />
     </BrowserRouter>
