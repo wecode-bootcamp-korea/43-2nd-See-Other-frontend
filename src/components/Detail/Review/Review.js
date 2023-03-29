@@ -12,7 +12,7 @@ function Review({ comment }) {
           <ScreenOut>관람일: </ScreenOut>2023.03.27(월)
         </ViewiDay>
         {/* comment 객체의 내용을 출력 */}
-        <div>{comment.content}</div>
+        <TxtComment>{comment.content}</TxtComment>
       </WrapComment>
       <WrapButton>
         <BtnComment type="button">수정</BtnComment>
@@ -28,6 +28,10 @@ const ReviewList = styled.li`
 `;
 
 const WrapComment = styled.div``;
+
+const TxtComment = styled.div`
+  word-break: break-all;
+`;
 
 const UserId = styled.span`
   display: inline-block;

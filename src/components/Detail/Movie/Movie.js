@@ -39,6 +39,7 @@ const Movie = () => {
 const MovieInfo = styled.section`
   display: flex;
   justify-content: space-between;
+  padding: 35px 35px 0;
 `;
 
 const ImgWrap = styled.div`

@@ -59,8 +59,7 @@ const MovieDetail = styled.aside`
   overflow-y: auto;
   box-sizing: border-box;
   width: 700px;
-  height: 90vh;
-  padding: 35px;
+  height: 820px;
   border-radius: 25px;
   background: #fff;
   overscroll-behavior-y: contain;

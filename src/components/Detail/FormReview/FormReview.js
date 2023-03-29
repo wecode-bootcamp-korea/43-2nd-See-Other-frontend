@@ -56,8 +56,8 @@ const FormReview = ({ onSubmit }) => {
 export default FormReview;
 
 const ReviewFrom = styled.form`
-  margin-bottom: 30px;
-  padding-bottom: 17px;
+  margin: 0 35px 30px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #eee;
 `;
 
