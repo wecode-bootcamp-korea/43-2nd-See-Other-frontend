@@ -1,7 +1,7 @@
 export const CATE_MENU = [
   {
     id: 1,
-    link: '#',
+    link: '/movies',
     menu: '영화',
     subMenuTitle: {
       id: 1,
@@ -50,7 +50,7 @@ export const CATE_MENU = [
   },
   {
     id: 3,
-    link: '#',
+    link: '/ticket',
     menu: '예매',
     subMenuTitle: {
       id: 1,

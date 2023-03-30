@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Common from '../../components/Common/Common';
+import Common from '../../../components/Common/Common';
 
 const MainTitle = () => {
   const { ScreenOut } = Common;
