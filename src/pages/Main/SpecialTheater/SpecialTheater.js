@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MainMore from '../../../components/MainMore/MainMore';
+import MainMore from '../MainMore/MainMore';
 import Common from '../../../components/Common/Common';
 import styled from 'styled-components';
 
@@ -9,7 +9,6 @@ const SpecialTheater = () => {
 
   return (
     <TheaterBox>
-      <TitleTheater>특별관</TitleTheater>
       <TheaterWrap>
         <TheaterLink to="">
           <ImgGobal src="../../images/theater.jpg" alt="" />
@@ -29,11 +28,9 @@ const SpecialTheater = () => {
           ))}
         </TheaterList>
       </TheaterWrap>
-      <MainMore />
     </TheaterBox>
   );
 };
-
 const TheaterBox = styled.div`
   position: relative;
   width: 980px;
@@ -126,15 +123,18 @@ const THEATER = [
     id: 1,
     name: 'SUITE CINEMA',
     hasutag: '#호텔 컨셉의 프리미엄관',
+    src: '../../images/theater.jpg',
   },
   {
     id: 2,
     name: 'CINE & LIVINGROOM',
     hasutag: '#신개념 소셜 상영관',
+    src: '../../images/share.png',
   },
   {
     id: 3,
     name: '4DX',
     hasutag: '#모션시트 #오감체험',
+    src: '../../images/question.png',
   },
 ];

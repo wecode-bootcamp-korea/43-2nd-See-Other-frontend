@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Common from '../../components/Common/Common';
+import Common from '../../../components/Common/Common';
 
-const MainMore = () => {
+const MainMore = ({ more }) => {
   const { IcoMovie } = Common;
   return (
-    <LinkMore>
+    <LinkMore to={more}>
+      {/*
+       * 받아야할 링크를 부모 컴포넌트에 넣어주세요
+       * ex ) more="/movies"
+       */}
       전체보기
       <IcoMovie
         width="7px"

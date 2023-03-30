@@ -9,6 +9,13 @@ const Movie = () => {
     <CardMovie>
       <WrapMovie>
         <BunchThumb>
+          <BadgeGrade>
+            <IcoMovie
+              width="20px"
+              height="20px"
+              backgroundPosition="0px -60px"
+            />
+          </BadgeGrade>
           <ImgGobal
             src="../../../images/@movie_600x855.jpg"
             alt="영화 포스터 이미지"
@@ -57,7 +64,6 @@ const BunchThumb = styled.span`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-
   &::after {
     position: absolute;
     top: 0;
@@ -74,16 +80,24 @@ const BunchThumb = styled.span`
   }
 `;
 
+const BadgeGrade = styled.span`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 const GroupMovie = styled.div`
   display: none;
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, , 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   flex-direction: column;
   justify-content: center;
+  border-radius: 10px;
 `;
 
 const EmphMovie = styled.em`
@@ -100,19 +114,15 @@ const EmphMovie = styled.em`
 
 const CardMovie = styled.div`
   width: 100%;
-
   &:hover ${BunchThumb} {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
-
     &::after {
       background-color: rgba(0, 0, 0, 0.5);
     }
   }
-
   &:hover ${GroupMovie} {
     display: flex;
   }
-
   &:hover ${EmphMovie} {
     display: none;
   }
@@ -133,7 +143,6 @@ const BtnMovie = styled(Link)`
   text-decoration: none;
   color: ${props => props.color};
   border-radius: 4px;
-
   &:hover {
     opacity: 0.8;
   }
@@ -142,7 +151,7 @@ const BtnMovie = styled(Link)`
 const TitName = styled.strong`
   overflow: hidden;
   display: block;
-  margin-top: 7px;
+  margin-top: 15px;
   font-size: 16px;
   color: #222;
   line-height: 25px;
@@ -168,7 +177,6 @@ const TxtRating = styled.span`
   font-size: 14px;
   line-height: 20px;
   color: #888;
-
   &::after {
     position: absolute;
     top: 5px;
@@ -188,10 +196,10 @@ const WrapBadge = styled.span`
 const BadgeMovie = styled.span`
   display: block;
   margin: 0 2px;
-  padding: 1px 2px;
+  padding: 3px 6px;
   font-size: 11px;
   color: #222;
-  border: 1px solid #888;
+  border: 1px solid #ddd;
   border-radius: 2px;
 `;
 
