@@ -233,5 +233,4 @@ const Review = styled.span`
 
 const Test = styled.div`
   display: flex;
-  ju
 `;
