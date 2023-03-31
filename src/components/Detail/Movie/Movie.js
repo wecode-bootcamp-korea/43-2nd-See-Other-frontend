@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Common from '../../Common/Common';
 
-const Movie = () => {
+const Movie = ({ koreanName, averageRate, name, summary }) => {
   const { IcoMovie, ScreenOut } = Common;
   return (
     <MovieInfo onClick={e => e.stopPropagation()}>
@@ -10,26 +10,25 @@ const Movie = () => {
         <img src="images/movie01.jpg" alt="포스터" />
       </ImgWrap>
       <DetailWrap>
-        <Title>더 퍼스트 슬램덩크</Title>
-        <EngTitle>The First Slam Dunk</EngTitle>
+        <Title>{koreanName}</Title>
+        <EngTitle>{name}</EngTitle>
         <RateGroup>
           <p>예매율 : 98%</p>
           <div>
             <IcoMovie
               height="18px"
               width="18px"
-              backgroundPosition="-80px 0px"
+              backgroundPosition="-100px -40px"
             />
+            <ScreenOut>평점 : </ScreenOut>
+            {Number(averageRate)}점
           </div>
         </RateGroup>
         <Summary>
           <dt>
             <ScreenOut>줄거리</ScreenOut>
           </dt>
-          <dd>
-            전국 제패를 꿈꾸는 북산고 농구부 5인방의 꿈과 열정, 멈추지 않는
-            도전을 그린 영화
-          </dd>
+          <dd>{summary}</dd>
         </Summary>
       </DetailWrap>
     </MovieInfo>

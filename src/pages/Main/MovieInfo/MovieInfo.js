@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MainTitle from '../MainTitle/MainTitle';
 import MainMore from '../MainMore/MainMore';
 import Movie from '../../../components/Movie/Movie';
 import styled from 'styled-components';
 
 const MovieInfo = () => {
+  const [movieList, setMovieList] = useState([]);
+
   return (
     <WrapMovieList>
       <InnerMovieList>
         <MainTitle />
-        <Movie />
+        {movieList.map((list, index) => {
+          return <Movie {...list} index={index} key={list.id} />;
+        })}
         <MainMore more="/movies" />
       </InnerMovieList>
     </WrapMovieList>

@@ -1,10 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../../../components/Common/Common';
 
 const SeoWrapHead = () => {
   const { IcoMovie } = Common;
+  const navigator = useNavigate();
+  const userToken = localStorage.getItem('token');
+
+  const handleAccount = () => {
+    if (userToken === null) {
+      console.log('로그아웃 상태');
+      navigator('/account');
+    } else {
+      console.log('로그인 상태');
+      localStorage.removeItem('token');
+      localStorage.removeItem('nickname');
+      navigator('/');
+      alert('로그아웃 되었습니다.');
+    }
+  };
+
   return (
     <WrapHead>
       <TitLogo>
@@ -15,15 +31,15 @@ const SeoWrapHead = () => {
         </LinkLogo>
       </TitLogo>
       <MenuUtil>
-        <LinkUtil to="/account">
+        <LinkUtil onClick={handleAccount}>
           <IcoMovie
             width="40px"
             height="40px"
-            backgroundPosition="-140px -30px"
+            backgroundPosition={userToken ? '-230px -200px' : '-140px -30px'}
           />
-          <TxtUtil>로그인</TxtUtil>
+          <TxtUtil>{userToken ? '로그아웃' : '로그인'}</TxtUtil>
         </LinkUtil>
-        <LinkUtil to="/account">
+        <LinkUtil>
           <IcoMovie
             width="40px"
             height="40px"
@@ -31,7 +47,7 @@ const SeoWrapHead = () => {
           />
           <TxtUtil>회원가입</TxtUtil>
         </LinkUtil>
-        <LinkUtil to="#">
+        <LinkUtil>
           <IcoMovie
             width="40px"
             height="40px"
@@ -65,7 +81,7 @@ const MenuUtil = styled.div`
   margin: 0 -20px 0 auto;
 `;
 
-const LinkUtil = styled(Link)`
+const LinkUtil = styled.button`
   display: inline-block;
   margin: 0 20px;
   vertical-align: top;

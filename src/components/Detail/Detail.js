@@ -1,27 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Movie from './Movie/Movie';
 import FormReview from './FormReview/FormReview';
 import ListReview from './ListReview/ListReview';
-import styled from 'styled-components';
 import Common from '../Common/Common';
+import { APIS } from '../../config';
 
-const Detail = ({ setIsOpenModal }) => {
+const Detail = ({
+  setIsOpenModal,
+  id,
+  koreanName,
+  name,
+  summary,
+  averageRate,
+}) => {
   const { IcoMovie } = Common;
-  const [comments, setComments] = useState([]);
+  const [content, setContent] = useState(''); // 댓글내용
+  const [comments, setComments] = useState([]); // 댓글내용
+  const tokenNickName = localStorage.getItem('nickname');
   const handleSubmit = newComment => {
     // 새로운 댓글을 추가
-    setComments([...comments, newComment]);
+    setComments([...comments, { ...newComment, nickname: tokenNickName }]);
   };
+
+  useEffect(() => {
+    fetch(APIS.read, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        movieId: id, // 무비아이디
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setComments(data.result);
+      });
+  }, []);
+
   return (
     <DetailBg
       onClick={() => {
         setIsOpenModal(prev => !prev);
       }}
     >
-      <MovieDetail onClick={e => e.stopPropagation()}>
-        <Movie />
-        <FormReview onSubmit={handleSubmit} />
-        <ListReview comments={comments} />
+      <MovieDetail onClick={e => e.stopPropagation()} key={id}>
+        <Movie
+          koreanName={koreanName}
+          name={name}
+          summary={summary}
+          averageRate={averageRate}
+        />
+        <FormReview
+          onSubmit={handleSubmit}
+          setContent={setContent}
+          comment={content}
+          comments={comments}
+          id={id}
+        />
+        <ListReview
+          comments={comments}
+          setComments={setComments}
+          setContent={setContent}
+          id={id}
+        />
         <BtnClose
           type="button"
           onClick={() => {
