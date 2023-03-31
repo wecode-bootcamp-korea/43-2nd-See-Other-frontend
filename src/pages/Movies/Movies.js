@@ -1,25 +1,31 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { BASE_URL } from '../../config';
-import SelectOption from '../../components/SelectOption/SelectOption';
-import CardMovie from '../../components/Movie/Movie';
-// TODO: feature/Moive branc가 main에 rebase/merge되면 추가될 부분
-// import Detail from '../../components/Detail/Detail';
-// import DetaiModal from '../Detailmodal/detaiModal';
 import styled from 'styled-components';
+import SelectOption from '../../components/SelectOption/SelectOption';
+import Movie from '../../components/Movie/Movie';
+import DetailModal from '../../components/Detail/DetailModal/DetailModal';
+import Common from '../../components/Common/Common';
 
 const Movies = () => {
+  const { IcoMovie } = Common;
   const [movieList, setMovieList] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [saveId, setSaveId] = useState('1');
   const [optionValue, setOptionValue] = useState('reservationRate');
   const [onScreen, setOnScreen] = useState('2');
 
-  const handelOnScreen = e => {
-    setOnScreen(e.target.value);
+  const handelCheck = e => {
+    setIsChecked(e.target.checked);
   };
 
   const handleModal = () => {
     setIsOpenModal(prev => !prev);
+  };
+
+  const handelOnScreen = e => {
+    setOnScreen(e.target.value);
   };
 
   const filterAPI = `${BASE_URL}/movies?movieStatusesId=${onScreen}&filter=${optionValue}`;
@@ -64,6 +70,19 @@ const Movies = () => {
           </GroupTab>
         </WrapTitle>
         <WrapUtil>
+          <CheckBox>
+            <InpCheck type="checkbox" id="check" onChange={handelCheck} />
+            <label htmlFor="check">
+              <IcoMovie
+                width="22px"
+                height="22px"
+                backgroundPosition={
+                  isChecked ? '-170px -70px;' : '-140px -70px;'
+                }
+              />
+            </label>
+            <TxtMovie>현재 상영작만 보기</TxtMovie>
+          </CheckBox>
           <GroupSelect>
             <SelectOption
               list={SELECT_LIST}
@@ -77,17 +96,21 @@ const Movies = () => {
           {movieList.map((list, index) => {
             return (
               <Li key={list.id}>
-                <CardMovie {...list} index={index} handleModal={handleModal} />
+                <Movie
+                  {...list}
+                  index={index}
+                  handleModal={handleModal}
+                  setSaveId={setSaveId}
+                />
               </Li>
             );
           })}
         </WrapMovie>
       </SubContents>
-      {/* TODO: feature/Moive branc가 main에 rebase/merge되면 추가될 부분 */}
-      {/* {movieList.map(modal => {
+      {movieList.map(modal => {
         return (
           modal.id === saveId && (
-            <DetaiModal
+            <DetailModal
               setIsOpenModal={setIsOpenModal}
               isOpenModal={isOpenModal}
               id={modal.id}
@@ -96,7 +119,7 @@ const Movies = () => {
             />
           )
         );
-      })} */}
+      })}
     </>
   );
 };
@@ -135,7 +158,6 @@ const BtnMovies = styled.button`
   color: #222;
   &[aria-selected='true'] {
     color: #fb4357;
-
     &::after {
       position: absolute;
       left: -5px;
@@ -155,6 +177,30 @@ const WrapUtil = styled.div`
   display: flex;
   padding-top: 30px;
 `;
+
+const CheckBox = styled.div``;
+
+const InpCheck = styled.input`
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 0 none;
+  background: none;
+  -webkit-appearance: none;
+  opacity: 0.01;
+`;
+
+const TxtMovie = styled.span`
+  display: inline-block;
+  vertical-align: top;
+  font-size: 15px;
+  color: #222;
+  line-height: 25px;
+  padding-left: 10px;
+`;
+
 const GroupSelect = styled.div`
   margin-left: auto;
 `;

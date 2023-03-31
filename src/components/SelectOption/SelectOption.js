@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const SelectOption = ({ list, setOptionValue }) => {
   const sortMovies = e => {
     setOptionValue(e.target.value);
+    console.log(e.target.value);
   };
   return (
     <section>

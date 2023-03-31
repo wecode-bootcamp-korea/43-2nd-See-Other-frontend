@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { APIS } from '../../../config';
 import Common from '../../Common/Common';
 
-const FormReview = ({ onSubmit }) => {
+const FormReview = ({ onSubmit, setContent, comment, id }) => {
   const { IcoMovie } = Common;
-  const [content, setContent] = useState(''); // 댓글내용
-  const [author, setAuthor] = useState(''); // 유저아이디
   const [rating, setRating] = useState(0); // 별점
-
+  const [disabled, setDisabled] = useState(false);
+  const tokenReview = localStorage.getItem('token');
   // 별점 버튼 클릭 시 rating state를 업데이트한다.
   const handleRatingClick = value => {
     setRating(value);
@@ -15,23 +15,45 @@ const FormReview = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ content, author });
+    onSubmit({ comment, rating });
+
+    fetch(APIS.review, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization: tokenReview,
+      },
+      body: JSON.stringify({
+        comment: comment, // 코멘트
+        rating: rating, //평점
+        movieId: id, // 무비아이디
+      }),
+    }).then(response => response.json());
     setContent('');
     setRating(0);
   };
+
+  useEffect(() => {
+    if (tokenReview === null) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, []);
 
   return (
     <ReviewFrom onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
       <ReviewTitle>
         관람일 포함 7일 이내 관람평을 남기시면 CJ ONE 20P가 적립됩니다.
       </ReviewTitle>
-      <Test>
+      <Test className={`${disabled && 'disabled'} `}>
         {[1, 2, 3, 4, 5].map(value => (
           <button
             type="button"
             key={value}
             value={value}
             onClick={() => handleRatingClick(value)}
+            disabled={disabled}
           >
             <IcoMovie
               height="18px"
@@ -40,14 +62,23 @@ const FormReview = ({ onSubmit }) => {
             />
           </button>
         ))}
+
         <ReviewInput
           type="text"
-          placeholder="댓글과 평점을 입력해주세요"
+          placeholder={
+            disabled
+              ? '예매한 회원만 이용이 가능합니다.'
+              : '댓글과 평점을 입력해주세요'
+          }
           id="content"
-          value={content}
+          value={comment}
           onChange={e => setContent(e.target.value)}
+          disabled={disabled}
         />
-        <ReviewBtn type="submit">등록</ReviewBtn>
+
+        <ReviewBtn type="submit" disabled={disabled}>
+          등록
+        </ReviewBtn>
       </Test>
     </ReviewFrom>
   );
@@ -69,8 +100,13 @@ const ReviewTitle = styled.legend`
 `;
 
 const Test = styled.div`
-  padding-top: 40px;
+  position: relative;
+  margin-top: 40px;
   display: flex;
+  &.disabled {
+    opacity: 0.3;
+    content: '';
+  }
 `;
 
 const ReviewInput = styled.input`
@@ -80,9 +116,6 @@ const ReviewInput = styled.input`
   padding-right: 20px;
   border: none;
   font-size: 110%;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const ReviewBtn = styled.button`

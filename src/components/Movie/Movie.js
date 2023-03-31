@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../Common/Common';
 
 const Movie = ({
-  id,
   koreanName,
   averageRate,
   handleModal,
-  setSaveId,
   grade,
   reservationRate,
   hallTypes,
   imageUrl,
   index,
+  setSaveId,
+  id,
 }) => {
   const { ImgGobal, ScreenOut, IcoMovie } = Common;
 
   const gradeNum = {
-    12: '0px -60px',
-    15: '-30px -60px',
-    19: '-60px -60px',
+    12: '1px -60px',
+    15: '-29px -60px',
+    19: '-59px -60px',
   };
 
   return (
@@ -76,8 +76,8 @@ const Movie = ({
         <TxtRating>예매율 {reservationRate}%</TxtRating>
       </WrapInfo>
       <WrapBadge>
-        {hallTypes.map((hallTypes, idx) => {
-          return <BadgeMovie key={idx}>{hallTypes}</BadgeMovie>;
+        {hallTypes.map((hallTypes, index) => {
+          return <BadgeMovie key={index}>{hallTypes}</BadgeMovie>;
         })}
       </WrapBadge>
     </CardMovie>
