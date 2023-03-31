@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MainMore from '../MainMore/MainMore';
 import Common from '../../../components/Common/Common';
@@ -6,21 +6,33 @@ import styled from 'styled-components';
 
 const SpecialTheater = () => {
   const { ImgGobal } = Common;
+  const [over, setOver] = useState(1);
+
+  const info = THEATER.filter(list => list.id === over)[0];
 
   return (
     <TheaterBox>
+      <TitleTheater>특별관</TitleTheater>
       <TheaterWrap>
         <TheaterLink to="">
-          <ImgGobal src="../../images/theater.jpg" alt="" />
+          <ImgWidth>
+            <ImgGobal src={info.src} alt="" />
+          </ImgWidth>
           <WrapText>
-            <TitleExplan>SUITE CINEMA</TitleExplan>
-            <SubExplan>#호텔 컨셉의 프리미엄관</SubExplan>
+            <TitleExplan>{info.name}</TitleExplan>
+            <SubExplan>{info.hasutag}</SubExplan>
           </WrapText>
         </TheaterLink>
+
         <TheaterList>
           {THEATER.map(({ id, name, hasutag }) => (
             <TheaterEach key={id}>
-              <EachLink to="">
+              <EachLink
+                to=""
+                onMouseOver={() => {
+                  setOver(id);
+                }}
+              >
                 <TheaterName>{name}</TheaterName>
                 <TheaterHasuTag>{hasutag}</TheaterHasuTag>
               </EachLink>
@@ -28,6 +40,7 @@ const SpecialTheater = () => {
           ))}
         </TheaterList>
       </TheaterWrap>
+      <MainMore />
     </TheaterBox>
   );
 };
@@ -58,6 +71,11 @@ const TheaterLink = styled(Link)`
     inset: 0;
     background-color: rgba(0, 0, 0, 0.4);
   }
+`;
+const ImgWidth = styled.div`
+  overflow: hidden;
+  width: 500px;
+  height: 310px;
 `;
 const WrapText = styled.div`
   position: absolute;
@@ -129,12 +147,12 @@ const THEATER = [
     id: 2,
     name: 'CINE & LIVINGROOM',
     hasutag: '#신개념 소셜 상영관',
-    src: '../../images/share.png',
+    src: '../../images/movie01.jpg',
   },
   {
     id: 3,
     name: '4DX',
     hasutag: '#모션시트 #오감체험',
-    src: '../../images/question.png',
+    src: '../../images/theater.jpg',
   },
 ];
