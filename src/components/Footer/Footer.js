@@ -74,15 +74,15 @@ const CompanyInfoList = styled.dl`
 
 const CompanyInfoTitle = styled.dt`
   &::after {
-    content: ':';
     margin: 0px 4px 0px 2px;
+    content: ':';
   }
 `;
 
 const CompanyInfoContent = styled.dd`
   &::after {
-    content: ',';
     margin-right: 7px;
+    content: ',';
   }
 `;
 
@@ -94,13 +94,13 @@ const FloatingBtnWrap = styled.div`
 
 const BookingBtn = styled.a`
   padding: 14px 38px;
+  border: none;
+  color: #fff;
   background: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
   box-shadow: 1px 3px 6px 0 rgba(0, 0, 0, 0.3);
-  border: none;
   border-radius: 25px;
   font-size: 15px;
   line-height: 15px;
-  color: #fff;
   text-decoration: none;
   font-weight: 400;
 `;

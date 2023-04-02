@@ -1,62 +1,63 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Modal from '../../../components/Modal/Modal';
 import Common from '../../../components/Common/Common';
 
-const SeoWrapHead = () => {
+const SeoWrapHead = ({
+  handleModalConfirm,
+  handleAccount,
+  userToken,
+  isOpenModal,
+}) => {
   const { IcoMovie } = Common;
-  const navigator = useNavigate();
-  const userToken = localStorage.getItem('token');
-
-  const handleAccount = () => {
-    if (userToken === null) {
-      console.log('로그아웃 상태');
-      navigator('/account');
-    } else {
-      console.log('로그인 상태');
-      localStorage.removeItem('token');
-      localStorage.removeItem('nickname');
-      navigator('/');
-      alert('로그아웃 되었습니다.');
-    }
-  };
 
   return (
-    <WrapHead>
-      <TitLogo>
-        <LinkLogo to="/">
-          <IcoMovie width="135px" height="44px" backgroundPosition="0 -80px">
-            see other
-          </IcoMovie>
-        </LinkLogo>
-      </TitLogo>
-      <MenuUtil>
-        <LinkUtil onClick={handleAccount}>
-          <IcoMovie
-            width="40px"
-            height="40px"
-            backgroundPosition={userToken ? '-230px -200px' : '-140px -30px'}
-          />
-          <TxtUtil>{userToken ? '로그아웃' : '로그인'}</TxtUtil>
-        </LinkUtil>
-        <LinkUtil>
-          <IcoMovie
-            width="40px"
-            height="40px"
-            backgroundPosition="-180px -30px"
-          />
-          <TxtUtil>회원가입</TxtUtil>
-        </LinkUtil>
-        <LinkUtil>
-          <IcoMovie
-            width="40px"
-            height="40px"
-            backgroundPosition="-220px -30px"
-          />
-          <TxtUtil>마이티켓</TxtUtil>
-        </LinkUtil>
-      </MenuUtil>
-    </WrapHead>
+    <>
+      <WrapHead>
+        <TitLogo>
+          <LinkLogo to="/">
+            <IcoMovie width="135px" height="44px" backgroundPosition="0 -80px">
+              see other
+            </IcoMovie>
+          </LinkLogo>
+        </TitLogo>
+        <MenuUtil>
+          <LinkUtil onClick={handleAccount} type="button">
+            <IcoMovie
+              width="40px"
+              height="40px"
+              backgroundPosition={userToken ? '-230px -200px' : '-140px -30px'}
+            />
+            <TxtUtil>{userToken ? '로그아웃' : '로그인'}</TxtUtil>
+          </LinkUtil>
+          <LinkUtil>
+            <IcoMovie
+              width="40px"
+              height="40px"
+              backgroundPosition="-180px -30px"
+            />
+            <TxtUtil>회원가입</TxtUtil>
+          </LinkUtil>
+          <LinkUtil>
+            <IcoMovie
+              width="40px"
+              height="40px"
+              backgroundPosition="-220px -30px"
+            />
+            <TxtUtil>마이티켓</TxtUtil>
+          </LinkUtil>
+        </MenuUtil>
+      </WrapHead>
+      {isOpenModal && (
+        <Modal
+          title="로그인, 로그아웃"
+          contents="로그아웃 하시겠습니까?"
+          btnContents={['취소', '확인']}
+          onConfirm={handleModalConfirm}
+        />
+      )}
+    </>
   );
 };
 

@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
 import styled from 'styled-components';
 import Common from '../../../components/Common/Common';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const CsCenter = () => {
   const { ImgGobal } = Common;
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <BoxInfo>
       <GroupInfo>
@@ -48,77 +58,120 @@ const CsCenter = () => {
         </BundleIApp>
       </GroupInfo>
       <GroupBnr>
-        <ImgGobal src="../../../images/@bnr_226x259.png" />
+        <div>
+          <StyledSlider {...settings}>
+            <ImgGobal src="../../../images/theaterfoot1.png" />
+            <ImgGobal src="../../../images/theaterfoot2.png" />
+          </StyledSlider>
+        </div>
       </GroupBnr>
     </BoxInfo>
   );
 };
+const StyledSlider = styled(Slider)`
+  .slick-prev {
+    left: -2px !important;
+    top: 46%;
+    z-index: 1;
+  }
+
+  .slick-next {
+    right: 8px !important;
+    top: 46%;
+    z-index: 1;
+  }
+
+  .slick-prev::before {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(../images/IcoMovie.svg) no-repeat;
+    background-position: 0px -23px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -9999px;
+    vertical-align: top;
+  }
+
+  .slick-next::before {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-size: 0;
+    line-height: 0;
+    background: url(../images/IcoMovie.svg) no-repeat;
+    background-position: -30px -23px;
+    overflow: hidden;
+    text-indent: -9999px;
+    vertical-align: top;
+  }
+`;
 
 const BoxInfo = styled.div`
   display: flex;
-  width: 980px;
-  margin: 0 auto;
   align-items: center;
   justify-content: space-between;
   align-items: stretch;
+  width: 980px;
+  margin: 0 auto;
 `;
 
 const GroupInfo = styled.div`
   display: flex;
   align-items: center;
   width: 738px;
-  border: 1px solid #dedede;
   padding: 24px 26px 20px 40px;
-  box-sizing: border-box;
+  border: 1px solid #dedede;
   border-radius: 10px;
+  box-sizing: border-box;
 `;
 
 const BundleInfo = styled.div`
-  border-right: 1px solid #dedede;
   width: 410px;
   padding-right: 40px;
+  border-right: 1px solid #dedede;
 `;
 
 const WrapNoti = styled.div`
   display: flex;
+  align-items: center;
   width: 410px;
   padding-bottom: 25px;
-  align-items: center;
 `;
 
 const TitNoti = styled.strong`
-  font-weight: normal;
   font-size: 16px;
   color: #222;
+  font-weight: normal;
   line-height: 22px;
 `;
 
 const LinkNoti = styled(Link)`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   max-width: 240px;
   padding-left: 10px;
   color: #888;
   font-size: 15px;
+  overflow: hidden;
   text-decoration: none;
   white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const LinkMore = styled(Link)`
-  text-decoration: none;
+  margin-left: auto;
+  padding: 8px 15px;
   color: #222;
   font-size: 13px;
   border: 1px solid #dedede;
-  padding: 8px 15px;
   border-radius: 15px;
-  margin-left: auto;
+  text-decoration: none;
 `;
 
 const WrapCsCenter = styled.div`
   display: flex;
-  border-top: 1px solid #dedede;
   padding-top: 25px;
+  border-top: 1px solid #dedede;
 `;
 
 const AreaCsCenter = styled.div`
@@ -126,20 +179,19 @@ const AreaCsCenter = styled.div`
 `;
 
 const BunchCsCenter = styled.strong`
-  font-weight: bold;
   font-size: 16px;
   line-height: 22px;
+  font-weight: bold;
 `;
 
 const DescCsCenter = styled.p`
   padding-top: 10px;
+  color: #555;
   font-size: 14px;
   line-height: 22px;
-  color: #555;
 `;
 
 const WrapUtil = styled.div`
-  display: fex;
   margin-left: -5px;
   padding-top: 20px;
 `;
@@ -147,15 +199,15 @@ const WrapUtil = styled.div`
 const BtnUtil = styled.button`
   margin: 0 5px;
   padding: 7px 12px;
-  background-color: #f2f2f2;
-  font-size: 14px;
   color: #222;
+  background-color: #f2f2f2;
   border-radius: 5px;
+  font-size: 14px;
 `;
 
 const BundleIApp = styled.div`
-  padding-left: 30px;
   width: 100%;
+  padding-left: 30px;
   text-align: center;
 `;
 
@@ -165,8 +217,8 @@ const TitApp = styled.strong`
 
 const DescApp = styled.p`
   padding-top: 10px;
-  font-size: 12px;
   color: #555;
+  font-size: 12px;
   line-height: 18px;
 `;
 
@@ -177,9 +229,10 @@ const LinkApp = styled(Link)`
 `;
 
 const GroupBnr = styled.div`
-  overflow: hidden;
+  width: 225px;
   height: 259px;
   border-radius: 10px;
+  overflow: hidden;
 `;
 
 export default CsCenter;

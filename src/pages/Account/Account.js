@@ -12,7 +12,7 @@ const Account = () => {
   return (
     <AccountContainer>
       <AccountWrap>
-        <IcoMovie width="135px" height="34px" backgroundPosition="0 -81px">
+        <IcoMovie width="135px" height="34px" backgroundPosition="0 -80px">
           see other
         </IcoMovie>
         <AccountTitle>

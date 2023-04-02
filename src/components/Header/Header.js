@@ -1,11 +1,31 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BnrHead from './BnrHead/BnrHead';
 import WrapHead from './WrapHead/WrapHead';
 import GroupHead from './GroupHead/GroupHead';
 
 const Header = () => {
   const [isFixed, setIsFixed] = useState(false);
+  const navigator = useNavigate();
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const userToken = localStorage.getItem('token');
+
+  const handleModalConfirm = result => {
+    const btnText = result.target.textContent;
+    if (btnText === '확인') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('nickname');
+    }
+    setIsOpenModal(prev => !prev);
+  };
+
+  const handleAccount = () => {
+    if (userToken === null) {
+      navigator('/account');
+    } else if (userToken) {
+      setIsOpenModal(prev => !prev);
+    }
+  };
 
   useEffect(() => {
     function handleScroll() {
@@ -26,8 +46,18 @@ const Header = () => {
   return (
     <>
       <BnrHead />
-      <WrapHead />
-      <GroupHead isFixed={isFixed} />
+      <WrapHead
+        handleModalConfirm={handleModalConfirm}
+        handleAccount={handleAccount}
+        userToken={userToken}
+        isOpenModal={isOpenModal}
+      />
+      <GroupHead
+        isFixed={isFixed}
+        handleModalConfirm={handleModalConfirm}
+        userToken={userToken}
+        isOpenModal={isOpenModal}
+      />
     </>
   );
 };

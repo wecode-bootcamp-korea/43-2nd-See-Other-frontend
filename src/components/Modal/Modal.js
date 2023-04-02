@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Common from '../../components/Common/Common';
 
-const Modal = props => {
+const Modal = ({ title, contents, btnContents, onConfirm }) => {
   const { ScreenOut } = Common;
-  const { title, contents, btnContents } = props;
+
+  const handleBtnClick = e => {
+    onConfirm && onConfirm(e);
+  };
 
   return (
     <CommLayer>
@@ -26,7 +29,7 @@ const Modal = props => {
            * btnContents={['취소', '확인']}
            */}
           {btnContents.map((value, index) => (
-            <BtnComm key={index} type="button">
+            <BtnComm key={index} type="button" onClick={handleBtnClick}>
               {value}
             </BtnComm>
           ))}
@@ -37,16 +40,16 @@ const Modal = props => {
 };
 
 const CommLayer = styled.div`
-  z-index: 11000;
+  position: fixed;
+  inset: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  position: fixed;
-  inset: 0px;
   background: rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+  z-index: 11000;
+  overscroll-behavior-y: contain;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
@@ -60,11 +63,11 @@ const BodyLayer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 15px 20px 15px 30px;
   min-height: 80px;
+  padding: 15px 20px 15px 30px;
+  color: #555;
   font-size: 15px;
   line-height: 25px;
-  color: #555;
   white-space: pre-line;
   word-break: break-all;
 `;
@@ -76,9 +79,9 @@ const FooterLayer = styled.div`
 const BtnComm = styled.button`
   width: 100%;
   height: 45px;
-  font-size: 15px;
   color: #555;
   border-top: 1px solid #dedede;
+  font-size: 15px;
 `;
 
 export default Modal;

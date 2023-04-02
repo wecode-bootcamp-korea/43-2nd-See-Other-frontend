@@ -1,21 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../../../components/Common/Common';
 
-const MainTitle = () => {
+const MainTitle = ({ handelOnScreen, onScreen }) => {
   const { ScreenOut } = Common;
+
   return (
     <>
       <ScreenOut as="h3">카테고리 선택</ScreenOut>
       <ListTab role="tablist">
         <Li>
-          <LinkTab role="tab" aria-selected="true">
+          <LinkTab
+            role="tab"
+            aria-selected={onScreen === '2'}
+            onClick={handelOnScreen}
+            value="2"
+          >
             무비차트
           </LinkTab>
         </Li>
         <Li>
-          <LinkTab role="tab" aria-selected="false">
+          <LinkTab
+            role="tab"
+            aria-selected={onScreen === '3'}
+            onClick={handelOnScreen}
+            value="3"
+          >
             상영예정작
           </LinkTab>
         </Li>
@@ -30,18 +40,18 @@ const ListTab = styled.ul`
   margin: 0 auto 20px;
 `;
 
-const LinkTab = styled(Link)`
+const LinkTab = styled.button`
   position: relative;
   margin-right: 40px;
+  color: #666;
   font-size: 26px;
   line-height: 35px;
-  color: #666;
   text-decoration: none;
 
   &[aria-selected='true'] {
     display: block;
-    font-weight: bold;
     color: #222;
+    font-weight: bold;
   }
 `;
 
