@@ -117,6 +117,7 @@ const TxtRating = styled.span`
   font-weight: bold;
   vertical-align: top;
   color: #222;
+
   &::after {
     position: absolute;
     width: 1px;
@@ -143,6 +144,7 @@ const UserId = styled.span`
   vertical-align: top;
   color: #888;
   padding-right: 15px;
+
   &::after {
     position: absolute;
     width: 1px;

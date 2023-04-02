@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Common from '../../../components/Common/Common';
 import styled from 'styled-components';
+import Common from '../../../components/Common/Common';
 
 const SeoBnrHead = () => {
   const { IcoMovie, ImgGobal, IrPm } = Common;
+  const closeBnr = useRef(null);
+  const handleBnr = () => {
+    closeBnr.current.style.marginTop = '-80px';
+  };
   return (
-    <BnrHead>
+    <BnrHead ref={closeBnr}>
       <InnerBnr>
         <LinkBnr to="#">
           <ImgGobal
@@ -15,7 +19,7 @@ const SeoBnrHead = () => {
           />
           <IrPm as="span">15세 이상 관람가</IrPm>
         </LinkBnr>
-        <BtnBnr type="button">
+        <BtnBnr type="button" onClick={handleBnr}>
           <IcoMovie
             width="15px"
             height="15px"
@@ -35,6 +39,7 @@ const BnrHead = styled.div`
   height: 80px;
   margin: 0 auto;
   background-color: #ffde00;
+  transition: all 0.25s ease-out;
 `;
 
 const InnerBnr = styled.div`

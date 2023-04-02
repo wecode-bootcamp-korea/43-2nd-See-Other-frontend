@@ -21,7 +21,6 @@ const Movie = ({
     15: '-29px -60px',
     19: '-59px -60px',
   };
-
   return (
     <CardMovie>
       <WrapMovie>
@@ -84,8 +83,8 @@ const Movie = ({
 };
 
 const BunchThumb = styled.span`
-  display: block;
   position: relative;
+  display: block;
   border-radius: 10px;
   overflow: hidden;
   &::after {
@@ -112,16 +111,16 @@ const BadgeGrade = styled.span`
 
 const GroupMovie = styled.div`
   display: none;
-  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  flex-direction: column;
-  justify-content: center;
   border-radius: 10px;
+  overflow: hidden;
 `;
 
 const EmphMovie = styled.em`
