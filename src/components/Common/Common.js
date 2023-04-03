@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 const ImgGobal = styled.img`
   display: block;
   width: 100%;
+  max-height: 350px;
 `;
 
 const IcoMovie = styled.span`

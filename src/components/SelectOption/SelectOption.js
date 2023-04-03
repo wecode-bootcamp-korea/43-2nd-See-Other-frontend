@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SelectOption = ({ list }) => {
+const SelectOption = ({ list, setOptionValue }) => {
+  const sortMovies = e => {
+    setOptionValue(e.target.value);
+  };
   return (
     <section>
-      <SelectGroup>
-        {list.map(({ id, value }) => {
-          return <option key={id}>{value}</option>;
+      <SelectGroup onChange={sortMovies}>
+        {list.map(({ id, value, filter }) => {
+          return (
+            <option key={id} value={filter}>
+              {value}
+            </option>
+          );
         })}
       </SelectGroup>
       <SelectBtn>GO</SelectBtn>

@@ -20,6 +20,7 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
     15: '-29px -60px',
     19: '-59px -60px',
   };
+
   return (
     <>
       {type === 'movie' && (
