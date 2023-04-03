@@ -13,7 +13,6 @@ const initValue = {
   time: '',
   seat: [],
 };
-
 const Ticket = () => {
   const [selectInfo, setSelectInfo] = useState(initValue);
   const handleValue = (key, value) => {
