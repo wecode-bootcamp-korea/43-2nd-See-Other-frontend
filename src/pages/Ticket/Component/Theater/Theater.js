@@ -1,32 +1,101 @@
 import React, { useState, useEffect } from 'react';
+import queryString from 'query-string';
 import styled from 'styled-components';
+import { APIS } from '../../../../config';
 import Calendar from 'react-calendar';
-import Common from '../../../../components/Common/Common';
 import FilterBox from '../FilterBox/FilterBox';
 import TicketBtn from '../TicketBtn/TicketBtn';
+import Common from '../../../../components/Common/Common';
 
 const Theater = ({ handleValue, selectInfo }) => {
-  const { Thead } = Common;
   const [dataList, setDataList] = useState([]);
+  const [filterList, setFilterList] = useState([]);
+  const [timeList, setTimeList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState(new Date());
+  const [newdate, setNewDate] = useState(new Date(Date.parse('2023-04-07')));
+  const { Thead } = Common;
+  const { movie, cinemaName, hallType, date, time, seat, totalPrice } =
+    selectInfo;
 
-  const { name, region, theater, cinema, time } = selectInfo;
+  const ischecked =
+    selectInfo.movie === '' &&
+    selectInfo.region === '' &&
+    selectInfo.hallType === '' &&
+    selectInfo.cinemaName === '';
+
+  const isVisible =
+    selectInfo.movie &&
+    selectInfo.region &&
+    selectInfo.cinemaName &&
+    selectInfo.hallType &&
+    selectInfo.date;
+
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    minimumIntegerDigits: 1,
+    useGrouping: false,
+  };
+
+  const formattedDate = newdate.toLocaleDateString('ko-KR', options);
+  const saveDate = formattedDate.replace(/\s|\.$/g, '');
 
   const handleChange = date => {
-    const formattedDate = date.toLocaleDateString('ko-KR');
-    setDate(date);
-    handleValue('date', formattedDate);
+    setNewDate(date);
+    handleValue('date', saveDate);
   };
 
   useEffect(() => {
-    fetch('/data/Theaterfilter.json')
-      .then(res => res.json())
-      .then(datas => {
-        setDataList(datas.data);
-        setLoading(false);
-      });
-  }, []);
+    const values = {
+      movie,
+      cinemaName,
+      hallType,
+      date,
+      time,
+      seat,
+    };
+
+    const removeSpaces = value => {
+      if (typeof value === 'string') {
+        return value.replace(/\s/g, '');
+      }
+      return value;
+    };
+
+    const sanitizedValues = Object.fromEntries(
+      Object.entries(values).map(([key, value]) => [key, removeSpaces(value)])
+    );
+
+    const queryParams = queryString.stringify(sanitizedValues, {
+      skipEmptyString: true,
+    });
+
+    ischecked
+      ? fetch(APIS.reservationAll)
+          .then(res => res.json())
+          .then(datas => {
+            setDataList(datas.getOptions);
+            setFilterList(datas.getOptions);
+            handleValue('date', saveDate.toString());
+            setLoading(false);
+          })
+      : fetch(`${APIS.reservationAll}?${queryParams}`)
+          .then(res => res.json())
+          .then(datas => {
+            setFilterList(datas.getOptions);
+            handleValue('date', saveDate);
+            setLoading(false);
+          });
+
+    isVisible &&
+      fetch(`${APIS.time}?${queryParams}`)
+        .then(res => res.json())
+        .then(datas => {
+          setTimeList(datas.getTimes);
+          setLoading(false);
+        });
+  }, [ischecked, saveDate, handleValue, isVisible, selectInfo]);
 
   if (loading) return <div>loading</div>;
 
@@ -37,13 +106,13 @@ const Theater = ({ handleValue, selectInfo }) => {
         <Tbody>
           <FilterBox />
           <ul>
-            {dataList[0].map(list => {
+            {dataList.listMovieOptions.map(list => {
               return (
                 <TicketBtn
                   key={list.id}
                   type="movie"
                   {...list}
-                  isSelected={name === list.name}
+                  isSelected={selectInfo.korName === list.koreanName}
                   handleValue={handleValue}
                 />
               );
@@ -57,45 +126,44 @@ const Theater = ({ handleValue, selectInfo }) => {
           <FilterBox />
           <TheaterBox>
             <RegionList>
-              {dataList[1].map(list => {
+              {filterList.listRegionOptions.map(list => {
                 return (
                   <TicketBtn
                     key={list.id}
                     type="region"
                     {...list}
-                    isSelected={region === list.region}
+                    isSelected={selectInfo.region === list.region}
                     handleValue={handleValue}
                   />
                 );
               })}
             </RegionList>
             <CinemaList>
-              {dataList[1].map(list => {
-                return (
-                  selectInfo.region === list.region &&
-                  list.cinema.map(cinemaName => {
-                    return (
+              {filterList.listRegionOptions.map(list => {
+                return list.cinemaNames.map(cinemaName => {
+                  return (
+                    selectInfo.region === list.region && (
                       <TicketBtn
                         key={cinemaName}
                         type="cinema"
                         cinemaName={cinemaName}
-                        isSelected={cinema === cinemaName}
+                        isSelected={selectInfo.cinemaName === cinemaName}
                         handleValue={handleValue}
                       />
-                    );
-                  })
-                );
+                    )
+                  );
+                });
               })}
             </CinemaList>
             <TheaterList>
-              {selectInfo.cinema &&
-                dataList[2].map(list => {
+              {selectInfo.cinemaName &&
+                filterList.listHallTypeOptions.map(list => {
                   return (
                     <TicketBtn
                       key={list.id}
                       type="theater"
                       theaterName={list.name}
-                      isSelected={theater === list.name}
+                      isSelected={selectInfo.hallType === list.name}
                       handleValue={handleValue}
                     />
                   );
@@ -109,32 +177,51 @@ const Theater = ({ handleValue, selectInfo }) => {
         <StyledCalendar>
           <Calendar
             onChange={handleChange}
-            value={date}
+            value={newdate}
             showNeighboringMonth={false}
             prev2Label=""
             next2Label=""
-            onClickDay={() => handleValue('date', date)}
+            onClickDay={() => handleValue('date', newdate)}
           />
         </StyledCalendar>
       </OptionBox>
       <OptionBox>
         <Thead>시간</Thead>
         <Tbody>
-          <RunningTime>
-            <RunningTimeTitle>
-              <TimeType>2D(더빙)</TimeType> 1관 6층
-              <SeatCount>(총 158석)</SeatCount>
-            </RunningTimeTitle>
-            <dd>
-              <TicketBtn
-                type="time"
-                handleValue={handleValue}
-                isSelected={time === '20:45'}
-                startTime="20:45"
-              />
-              <span>135석</span>
-            </dd>
-          </RunningTime>
+          {isVisible &&
+            timeList.map(
+              ({
+                screeningRooms,
+                hallTypes,
+                totalSeats,
+                runningTime,
+                times,
+              }) => {
+                return (
+                  <RunningTime key={screeningRooms}>
+                    <RunningTimeTitle>
+                      <TimeType>2D(더빙)</TimeType> {hallTypes} {screeningRooms}
+                      관 6층
+                      <SeatCount>(총 {totalSeats}석)</SeatCount>
+                    </RunningTimeTitle>
+                    {times.map(({ startTime, remainingSeats }) => {
+                      return (
+                        <RunningTimeTxt key={startTime}>
+                          <TicketBtn
+                            type="time"
+                            handleValue={handleValue}
+                            isSelected={selectInfo.time === startTime}
+                            startTime={startTime}
+                            screeningRooms={screeningRooms}
+                          />
+                          <span>잔여 {remainingSeats}석</span>
+                        </RunningTimeTxt>
+                      );
+                    })}
+                  </RunningTime>
+                );
+              }
+            )}
         </Tbody>
       </OptionBox>
     </OptionContainer>
@@ -147,7 +234,7 @@ const OptionContainer = styled.article`
   display: grid;
   grid-template-columns: 22% auto 15% 29%;
   width: 100%;
-  height: 600px;
+  height: 100%;
   font-size: 85%;
   font-weight: 300;
 `;
@@ -195,6 +282,11 @@ const RunningTime = styled.dl`
 const RunningTimeTitle = styled.dt`
   margin-bottom: 10px;
   font-weight: bold;
+`;
+
+const RunningTimeTxt = styled.dd`
+  display: inline-block;
+  margin: 8px 15px 0 0;
 `;
 
 const TimeType = styled.strong`

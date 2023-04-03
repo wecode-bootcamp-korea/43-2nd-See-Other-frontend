@@ -1,0 +1,36 @@
+{
+  "getOptions": [
+    [
+      { "id": 1, "koreanName": "기철이", "grade": 15 },
+      { "id": 2, "koreanName": "메트로폴리스", "grade": 19 },
+      { "id": 3, "koreanName": "스즈메의 문단속", "grade": 12 }
+    ],
+    [
+      { "id": 1, "region": "서울", "cinemaNames": ["강남", "강북"] },
+      { "id": 2, "region": "경기", "cinemaNames": ["일산", "성남"] }
+    ],
+    [
+      {
+        "id": 1,
+        "name": "Standard"
+      },
+      {
+        "id": 2,
+        "name": "Suite Cinema"
+      },
+      {
+        "id": 3,
+        "name": "IMAX"
+      },
+      {
+        "id": 4,
+        "name": "CINE DE CHEF"
+      }
+    ],
+    [
+      { "id": 1, "date": "2023.04.07" },
+      { "id": 1, "date": "2023.04.08" },
+      { "id": 1, "date": "2023.04.09" }
+    ]
+  ]
+}
