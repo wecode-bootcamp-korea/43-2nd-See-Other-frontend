@@ -5,6 +5,9 @@ import Common from '../../../components/Common/Common';
 
 const SeoWrapHead = () => {
   const { IcoMovie } = Common;
+
+  const userToken = localStorage.getItem('token');
+
   return (
     <WrapHead>
       <TitLogo>
@@ -19,9 +22,9 @@ const SeoWrapHead = () => {
           <IcoMovie
             width="40px"
             height="40px"
-            backgroundPosition="-140px -30px"
+            backgroundPosition={userToken ? '-230px -200px' : '-90px -60px'}
           />
-          <TxtUtil>로그인</TxtUtil>
+          <TxtUtil>{userToken ? '로그아웃' : '로그인'}</TxtUtil>
         </LinkUtil>
         <LinkUtil to="/account">
           <IcoMovie
