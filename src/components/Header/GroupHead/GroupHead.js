@@ -6,6 +6,9 @@ import { CATE_MENU } from './CATE_MENU.js';
 
 const SeoGroupHead = ({ isFixed }) => {
   const { IcoMovie, ScreenOut } = Common;
+
+  const handleAccount = () => {};
+
   return (
     <GroupHead className={isFixed && 'fixed'}>
       <BunchHead isFixed={isFixed}>
