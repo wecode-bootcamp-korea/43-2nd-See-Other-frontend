@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 import Common from '../../../../components/Common/Common';
 
-const TicketBtn = ({ isSelected, handleValue, ...props }) => {
+const TicketBtn = ({ isSelected, isDisabled, handleValue, ...props }) => {
   const {
     type,
+    koreanName,
     name,
     grade,
     region,
-    cinema,
+    imageUrl,
+    cinemaNames,
     cinemaName,
     theaterName,
     startTime,
+    screeningRooms,
   } = props;
-
   const { IcoMovie } = Common;
 
   const gradeNum = {
@@ -27,14 +29,13 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
         <MovieName
           draggable={true}
           isSelected={isSelected}
-          onClick={() => {
-            // TODO : 사용자의 나이가 19세 미만일때 예약 불가능 기능
-            // if (grade === 19) {
-            //   alert('19세 미만 관람 불가 영화입니다. 로그인을 해주세요');
-            // } else {
-            handleValue('name', name);
+          koreanName={koreanName}
+          onClick={e => {
+            handleValue('korName', koreanName);
             handleValue('grade', grade);
-            // }
+            handleValue('imageUrl', imageUrl);
+            handleValue('movie', name);
+            // getFilterList();
           }}
         >
           <IcoMovie
@@ -42,7 +43,7 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
             height="20px"
             backgroundPosition={gradeNum[grade]}
           />
-          {name}
+          {koreanName}
         </MovieName>
       )}
 
@@ -52,9 +53,10 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
           isSelected={isSelected}
           onClick={() => {
             handleValue('region', region);
+            // getFilterList();s
           }}
         >
-          {region}({cinema.length})
+          {region}({cinemaNames.length})
         </Region>
       )}
 
@@ -63,7 +65,7 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
           draggable={true}
           isSelected={isSelected}
           onClick={() => {
-            handleValue('cinema', cinemaName);
+            handleValue('cinemaName', cinemaName);
           }}
         >
           {cinemaName}
@@ -75,7 +77,7 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
           draggable={true}
           isSelected={isSelected}
           onClick={() => {
-            handleValue('theater', theaterName);
+            handleValue('hallType', theaterName);
           }}
         >
           {theaterName}
@@ -87,6 +89,7 @@ const TicketBtn = ({ isSelected, handleValue, ...props }) => {
           isSelected={isSelected}
           onClick={() => {
             handleValue('time', startTime);
+            handleValue('screeningRoom', screeningRooms);
           }}
         >
           {startTime}
@@ -105,17 +108,30 @@ const MovieName = styled.li`
   align-items: center;
   height: 30px;
   margin-bottom: 5px;
+  padding-left: 5px;
   background-color: ${props => (props.isSelected ? '#e6e4d9' : 'transparent')};
+  color: ${props => (props.isSelected ? '#b54d15' : 'e6e4d9')};
   line-height: 30px;
   cursor: pointer;
+
+  &:hover {
+    color: #b54d15;
+    transition: 0.3s;
+  }
 `;
 
 const Region = styled.li`
   height: 30px;
   margin: 0 5px 5px 0;
   background-color: ${props => (props.isSelected ? '#e6e4d9' : 'transparent')};
+  color: ${props => (props.isSelected ? '#b54d15' : 'e6e4d9')};
   line-height: 30px;
   cursor: pointer;
+
+  &:hover {
+    color: #b54d15;
+    transition: 0.3s;
+  }
 `;
 
 const TheaterName = styled.li`
@@ -123,8 +139,14 @@ const TheaterName = styled.li`
   margin: 0 5px 5px 5px;
   padding: 0 10px;
   background-color: ${props => (props.isSelected ? '#e6e4d9' : 'transparent')};
+  color: ${props => (props.isSelected ? '#b54d15' : 'e6e4d9')};
   line-height: 30px;
   cursor: pointer;
+
+  &:hover {
+    color: #b54d15;
+    transition: 0.3s;
+  }
 `;
 
 const TimeButton = styled.button`
@@ -132,4 +154,10 @@ const TimeButton = styled.button`
   padding: 7px;
   border: 1px solid #d6d3ce;
   background-color: ${props => (props.isSelected ? '#e6e4d9' : 'transparent')};
+  color: ${props => (props.isSelected ? '#b54d15' : 'e6e4d9')};
+
+  &:hover {
+    color: #b54d15;
+    transition: 0.3s;
+  }
 `;

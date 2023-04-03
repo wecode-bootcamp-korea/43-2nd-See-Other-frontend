@@ -19,7 +19,6 @@ const Kakao = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         fetch(APIS.signup, {
           method: 'POST',
           headers: {

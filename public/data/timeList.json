@@ -1,0 +1,24 @@
+{
+  "getTimes": [
+    {
+      "screeningRooms": 2,
+      "hallTypes": "Cine de Chef",
+      "totalSeats": 6,
+      "runningTime": 120,
+      "times": [
+        {
+          "startTime": "13:00",
+          "remainingSeats": 6
+        },
+        {
+          "startTime": "16:00",
+          "remainingSeats": 4
+        },
+        {
+          "startTime": "20:00",
+          "remainingSeats": 6
+        }
+      ]
+    }
+  ]
+}

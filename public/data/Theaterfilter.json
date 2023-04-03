@@ -1,36 +1,30 @@
 {
-  "data": [
-    [
-      { "id": 1, "name": "기철이", "grade": 15 },
-      { "id": 2, "name": "거리에서", "grade": 19 },
-      { "id": 3, "name": "스즈메의 문단속", "grade": 12 }
-    ],
-    [
-      { "id": 1, "region": "서울", "cinema": ["강남", "강북"] },
-      { "id": 2, "region": "경기", "cinema": ["일산", "성남"] }
-    ],
-    [
-      {
-        "id": 1,
-        "name": "일반"
-      },
+  "getOptions": {
+    "listMovieOptions": [
       {
         "id": 2,
-        "name": "SUITE CINEMA"
-      },
-      {
-        "id": 3,
-        "name": "IMAX"
-      },
-      {
-        "id": 4,
-        "name": "CINE DE CHEF"
+        "name": "metropolis",
+        "koreanName": "메트로폴리스",
+        "grade": 19,
+        "imageUrl": "https://user-images.githubusercontent.com/121275209/228115254-4f051e08-9b84-469e-9be5-b4baa0090233.jpeg"
       }
     ],
-    [
-      { "id": 1, "date": "2023.04.07" },
-      { "id": 1, "date": "2023.04.08" },
-      { "id": 1, "date": "2023.04.09" }
+    "listRegionOptions": [
+      {
+        "region": "경기",
+        "cinemaNames": ["수원"]
+      }
+    ],
+    "listHallTypeOptions": [
+      {
+        "id": 2,
+        "name": "Suite Cinema"
+      }
+    ],
+    "listDateOptions": [
+      {
+        "dates": ["2023.4.7"]
+      }
     ]
-  ]
+  }
 }

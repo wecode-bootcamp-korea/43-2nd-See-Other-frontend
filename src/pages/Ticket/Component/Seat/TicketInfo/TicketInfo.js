@@ -1,19 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import Common from '../../../../components/Common/Common';
+import Common from '../../../../../components/Common/Common';
 
-const TicketInfo = () => {
+const TicketInfo = ({ selectInfo, totalSeats, remainingSeats, price }) => {
   const { ScreenOut, IcoMovie } = Common;
+  const { cinemaName, hallType, date, time } = selectInfo;
+  const gradePrice = {
+    Economy: Number(price) - 5000,
+    Business: Number(price),
+    Premium: Number(price) + 5000,
+  };
 
   return (
     <GroupSeatInfo>
       <WrapInfo>
         <TxtInfo>
-          <ScreenOut>관람 정보 : </ScreenOut>건대입구, 4관 4층 남은좌석 122/127
+          <ScreenOut>관람 정보 : </ScreenOut> {cinemaName}, {hallType}관 4층
+          남은좌석 &nbsp;
+          {remainingSeats}/{totalSeats}
         </TxtInfo>
         <EmphTime>
-          <ScreenOut>관람 시간 : </ScreenOut>2023.03.29 &#40;수&#41; 20:10 ~
-          21:57
+          <ScreenOut>관람 시간 : </ScreenOut>
+          {date} {time} ~ 21:57
         </EmphTime>
       </WrapInfo>
       <div>
@@ -34,16 +42,12 @@ const TicketInfo = () => {
         </ListSeatType>
         <ScreenOut>좌석 상세 안내</ScreenOut>
         <ListSeatType>
-          {TICKET_INFO.map(({ id, img_position, name, price }) => {
+          {PRICE_INFO.map(({ id, name, img }) => {
             return (
               <Li key={id}>
-                <IcoMovie
-                  width="16px"
-                  height="16px"
-                  backgroundPosition={img_position}
-                />
+                <IcoMovie width="16px" height="16px" backgroundPosition={img} />
                 <TxtType>{name}</TxtType>
-                <EmphTxt>{price}</EmphTxt>
+                <EmphTxt>{gradePrice[name].toLocaleString()}원</EmphTxt>
               </Li>
             );
           })}
@@ -129,25 +133,21 @@ const SEAT_INFO = [
   },
 ];
 
-const TICKET_INFO = [
+const PRICE_INFO = [
   {
     id: 1,
-    name: '이코노미석',
-    price: '10,000원',
-    img_position: '-200px -90px',
+    name: 'Economy',
+    img: '-200px -90px',
   },
   {
     id: 2,
-    name: '비즈니스석',
-    price: '20,000원',
-    img_position: '-230px -90px',
+    name: 'Business',
+    img: '-230px -90px',
   },
   {
     id: 3,
-    name: '프리미엄석',
-    price: '25,000원',
-    img_position: '-260px -90px',
+    name: 'Premium',
+    img: '-260px -90px',
   },
 ];
-
 export default TicketInfo;

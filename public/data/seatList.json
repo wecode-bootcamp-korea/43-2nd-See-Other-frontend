@@ -1,0 +1,12 @@
+{
+  "seatList": [
+    {
+      "id": 1,
+      "cinemaId": "1",
+      "totalSeats": "24",
+      "albedSeat": "20",
+      "BookingSeat": ["A2", "A3", "B4"],
+      "price": 20000
+    }
+  ]
+}
