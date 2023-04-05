@@ -6,22 +6,29 @@ import ListReview from './ListReview/ListReview';
 import Common from '../Common/Common';
 import { APIS } from '../../config';
 
-const Detail = ({
-  setIsOpenModal,
-  id,
-  koreanName,
-  name,
-  summary,
-  averageRate,
-}) => {
+const Detail = ({ setIsOpenModal, id }) => {
   const { IcoMovie } = Common;
   const [content, setContent] = useState(''); // 댓글내용
   const [comments, setComments] = useState([]); // 댓글내용
+  const [detail, setDetail] = useState([]);
   const tokenNickName = localStorage.getItem('nickname');
   const handleSubmit = newComment => {
     // 새로운 댓글을 추가
     setComments([...comments, { ...newComment, nickname: tokenNickName }]);
   };
+
+  useEffect(() => {
+    fetch(APIS.movies`/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setDetail(data.movieList[0]);
+      });
+  }, [id]);
 
   useEffect(() => {
     fetch(APIS.read, {
@@ -46,12 +53,7 @@ const Detail = ({
       }}
     >
       <MovieDetail onClick={e => e.stopPropagation()} key={id}>
-        <Movie
-          koreanName={koreanName}
-          name={name}
-          summary={summary}
-          averageRate={averageRate}
-        />
+        <Movie {...detail} />
         <FormReview
           onSubmit={handleSubmit}
           setContent={setContent}

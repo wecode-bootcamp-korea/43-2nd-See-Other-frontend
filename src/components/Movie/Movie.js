@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../Common/Common';
@@ -16,7 +16,6 @@ const Movie = ({
   id,
 }) => {
   const { ImgGobal, ScreenOut, IcoMovie } = Common;
-
   const gradeNum = {
     12: '1px -60px',
     15: '-29px -60px',

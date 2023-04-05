@@ -2,24 +2,28 @@ import React from 'react';
 import Detail from '../Detail';
 
 const DetailModal = ({
+  imageUrl,
   isOpenModal,
   setIsOpenModal,
   id,
   koreanName,
-  name,
+  englishName,
   summary,
-  averageRate,
+  averageRating,
+  reservationRate,
 }) => {
   return (
     isOpenModal && (
       <Detail
+        imageUrl={imageUrl}
         setIsOpenModal={setIsOpenModal}
         key={id}
         id={id}
         koreanName={koreanName}
-        name={name}
+        englishName={englishName}
         summary={summary}
-        averageRate={averageRate}
+        averageRating={averageRating}
+        reservationRate={reservationRate}
       />
     )
   );

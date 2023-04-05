@@ -15,7 +15,6 @@ const Movies = () => {
   const [saveId, setSaveId] = useState('1');
   const [optionValue, setOptionValue] = useState('reservationRate');
   const [onScreen, setOnScreen] = useState('2');
-
   const handelCheck = e => {
     setIsChecked(e.target.checked);
   };
@@ -31,12 +30,15 @@ const Movies = () => {
   const filterAPI = `${BASE_URL}/movies?movieStatusesId=${onScreen}&filter=${optionValue}`;
 
   useEffect(() => {
-    fetch(filterAPI, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
-      },
-    })
+    fetch(
+      `http://10.58.52.102:3000/movies?movieStatusesId=${onScreen}&filter=${optionValue}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
+        },
+      }
+    )
       .then(res => res.json())
       .then(data => {
         setMovieList(data.movieList);
@@ -107,18 +109,17 @@ const Movies = () => {
           })}
         </WrapMovie>
       </SubContents>
-      {movieList.map(modal => {
-        return (
-          modal.id === saveId && (
+      {movieList.map(({ id }) => {
+        if (saveId === id) {
+          return (
             <DetailModal
+              key={id}
+              id={id}
               setIsOpenModal={setIsOpenModal}
               isOpenModal={isOpenModal}
-              id={modal.id}
-              key={modal.id}
-              {...modal}
             />
-          )
-        );
+          );
+        }
       })}
     </>
   );

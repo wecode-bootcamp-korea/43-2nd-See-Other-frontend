@@ -2,18 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import Common from '../../Common/Common';
 
-const Movie = ({ koreanName, averageRate, name, summary }) => {
+const Movie = ({
+  koreanName,
+  averageRating,
+  englishName,
+  summary,
+  imageUrl,
+  reservationRate,
+}) => {
   const { IcoMovie, ScreenOut } = Common;
   return (
     <MovieInfo onClick={e => e.stopPropagation()}>
       <ImgWrap>
-        <img src="images/movie01.jpg" alt="포스터" />
+        <img src={imageUrl} alt="포스터" />
       </ImgWrap>
       <DetailWrap>
         <Title>{koreanName}</Title>
-        <EngTitle>{name}</EngTitle>
+        <EngTitle>{englishName}</EngTitle>
         <RateGroup>
-          <p>예매율 : 98%</p>
+          <p>예매율 : {Number(reservationRate)}%</p>
           <div>
             <IcoMovie
               height="18px"
@@ -21,7 +28,7 @@ const Movie = ({ koreanName, averageRate, name, summary }) => {
               backgroundPosition="-100px -40px"
             />
             <ScreenOut>평점 : </ScreenOut>
-            {Number(averageRate)}점
+            {Number(averageRating)}점
           </div>
         </RateGroup>
         <Summary>
