@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import BnrHead from './BnrHead/BnrHead';
 import WrapHead from './WrapHead/WrapHead';
 import GroupHead from './GroupHead/GroupHead';
-import styled from 'styled-components';
 
 const Header = () => {
   const [isFixed, setIsFixed] = useState(false);

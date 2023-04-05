@@ -1,0 +1,88 @@
+export const LIST_STORE = [
+  {
+    id: 1,
+    img_url: '/images/popcorn2.jpg',
+    name: '팝콘 가족세트',
+    price: '62,000',
+    list_price: '65,000',
+  },
+  {
+    id: 2,
+    img_url: '/images/storesell4.jpg',
+    name: '아이스크림 세트',
+    price: '62,000',
+    list_price: '65,000',
+  },
+  {
+    id: 3,
+    img_url: '/images/storesell1.jpg',
+    name: '냠냠 핫도그 세트',
+    price: '62,000',
+    list_price: '6,5000',
+  },
+  {
+    id: 4,
+    img_url: '/images/storesell3.jpg',
+    name: '할머니 손맛 토스트',
+    price: '5,000',
+    list_price: '2,5000',
+  },
+  {
+    id: 5,
+    img_url: '/images/movieticket1.jpg',
+    name: '프리미엄티켓',
+    price: '55,000',
+    list_price: '72,5000',
+  },
+  {
+    id: 6,
+    img_url: '/images/movieticket2.jpg',
+    name: '비즈니스티켓',
+    price: '35,000',
+    list_price: '55,000',
+  },
+  {
+    id: 7,
+    img_url: '/images/movieticket3.jpg',
+    name: '이코노미 티켓',
+    price: '12,000',
+    list_price: '15,5000',
+  },
+  {
+    id: 8,
+    img_url: '/images/movieticket4.jpg',
+    name: '스위트 박스',
+    price: '75,000',
+    list_price: '87,000',
+  },
+  {
+    id: 9,
+    img_url: '/images/moviedrink1.jpg',
+    name: '샤르르 오렌지 쥬스',
+    price: '12,000',
+    list_price: '14,000',
+  },
+  {
+    id: 10,
+    img_url: '/images/moviedrink2.jpg',
+    name: '벌컥벌컥 맥주',
+    price: '75,000',
+    list_price: '87,000',
+  },
+  {
+    id: 11,
+    img_url: '/images/moviedrink3.jpg',
+    name: '상콤 에이드',
+    price: '19,000',
+    list_price: '22,000',
+  },
+  {
+    id: 12,
+    img_url: '/images/moviedrink4.jpg',
+    name: '오지수와 폭탄주',
+    price: '95,000',
+    list_price: '107,000',
+  },
+];
+
+export default LIST_STORE;
