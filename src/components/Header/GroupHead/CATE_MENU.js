@@ -82,7 +82,7 @@ export const CATE_MENU = [
   },
   {
     id: 4,
-    link: '#',
+    link: '/store',
     menu: '스토어',
     subMenuTitle: {
       id: 1,
