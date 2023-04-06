@@ -9,6 +9,7 @@ import Ticket from './pages/Ticket/Ticket';
 import Store from './pages/Store/Store';
 import Detail from './components/Detail/Detail';
 import Kakao from './pages/Account/component/Kakao';
+import MyTicket from './components/MyTicket/MyTicket';
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/ticket" element={<Ticket />} />
         <Route path="/store" element={<Store />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/myticket" element={<MyTicket />} />
         <Route path="/oauth/callback/kakao" element={<Kakao />} />
       </Routes>
       <Footer />
