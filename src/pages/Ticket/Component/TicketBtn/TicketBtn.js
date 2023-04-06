@@ -16,11 +16,25 @@ const TicketBtn = ({ isSelected, isDisabled, handleValue, ...props }) => {
     screeningRooms,
   } = props;
   const { IcoMovie } = Common;
+  const userToken = localStorage.getItem('token');
+  const userAgeRange = localStorage.getItem('userAgeRange');
 
   const gradeNum = {
     12: '1px -60px',
     15: '-29px -60px',
     19: '-59px -60px',
+  };
+
+  const checkToken = () => {
+    if (!userToken) {
+      alert('로그인을 해주세요');
+    }
+  };
+
+  const checkAge = () => {
+    if (userAgeRange === ('0~9' || '10~19')) {
+      alert('미성년자 관람 불가 영화입니다');
+    }
   };
 
   return (
@@ -35,7 +49,8 @@ const TicketBtn = ({ isSelected, isDisabled, handleValue, ...props }) => {
             handleValue('grade', grade);
             handleValue('imageUrl', imageUrl);
             handleValue('movie', name);
-            // getFilterList();
+            grade === 19 && checkAge();
+            !userToken && alert('로그인을 해주세요');
           }}
         >
           <IcoMovie
@@ -53,6 +68,7 @@ const TicketBtn = ({ isSelected, isDisabled, handleValue, ...props }) => {
           isSelected={isSelected}
           onClick={() => {
             handleValue('region', region);
+            !userToken && alert('로그인을 해주세요');
             // getFilterList();s
           }}
         >

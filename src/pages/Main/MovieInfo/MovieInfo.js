@@ -63,7 +63,12 @@ const MovieInfo = () => {
             {movieList.map((list, index) => {
               return (
                 <SliderMovie key={list.id}>
-                  <Movie {...list} index={index} handleModal={handleModal} />
+                  <Movie
+                    {...list}
+                    index={index}
+                    handleModal={handleModal}
+                    setSaveId={setSaveId}
+                  />
                 </SliderMovie>
               );
             })}
@@ -71,18 +76,17 @@ const MovieInfo = () => {
           <MainMore more="/movies" />
         </InnerMovieList>
       </WrapMovieList>
-      {movieList.map(modal => {
-        return (
-          modal.id === saveId && (
+      {movieList.map(({ id }) => {
+        if (saveId === id) {
+          return (
             <DetailModal
+              key={id}
+              id={id}
               setIsOpenModal={setIsOpenModal}
               isOpenModal={isOpenModal}
-              id={modal.id}
-              key={modal.id}
-              {...modal}
             />
-          )
-        );
+          );
+        }
       })}
     </>
   );
@@ -106,7 +110,7 @@ const StyledSlider = styled(Slider)`
     width: 30px;
     height: 30px;
     background: url(../images/IcoMovie.svg) no-repeat;
-    background-position: 0px -23px;
+    background-position: 0px -20px;
     border-radius: 100%;
     box-shadow: 3px 7px 16px rgba(0, 0, 0, 0.4);
     font-size: 0;
@@ -121,7 +125,7 @@ const StyledSlider = styled(Slider)`
     width: 30px;
     height: 30px;
     background: url(../images/IcoMovie.svg) no-repeat;
-    background-position: -30px -23px;
+    background-position: -30px -20px;
     border-radius: 100%;
     box-shadow: 3px 7px 16px rgba(0, 0, 0, 0.4);
     font-size: 0;

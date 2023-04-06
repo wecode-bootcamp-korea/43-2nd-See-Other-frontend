@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../../../components/Common/Common';
 import MyTicket from '../../MyTicket/MyTicket';
+import Modal from '../../Modal/Modal';
 
-const SeoWrapHead = () => {
+const SeoWrapHead = ({
+  userToken,
+  handleAccount,
+  handleModalConfirm,
+  isOpenModal,
+  setIsOpenModal,
+  isAccount,
+  ticketInfo,
+  endTime,
+}) => {
   const { IcoMovie } = Common;
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <>
@@ -19,15 +28,15 @@ const SeoWrapHead = () => {
           </LinkLogo>
         </TitLogo>
         <MenuUtil>
-          <LinkUtil to="/account">
+          <LinkUtil onClick={handleAccount} type="button">
             <IcoMovie
               width="40px"
               height="40px"
-              backgroundPosition="-140px -30px"
+              backgroundPosition={userToken ? '-230px -200px' : '-140px -30px'}
             />
-            <TxtUtil>로그인</TxtUtil>
+            <TxtUtil>{userToken ? '로그아웃' : '로그인'}</TxtUtil>
           </LinkUtil>
-          <LinkUtil to="/account">
+          <LinkUtil>
             <IcoMovie
               width="40px"
               height="40px"
@@ -50,7 +59,21 @@ const SeoWrapHead = () => {
           </LinkUtil>
         </MenuUtil>
       </WrapHead>
-      {isOpenModal && <MyTicket setIsOpenModal={setIsOpenModal} />}
+      {isOpenModal && (
+        <MyTicket
+          setIsOpenModal={setIsOpenModal}
+          ticketInfo={ticketInfo}
+          endTime={endTime}
+        />
+      )}
+      {isAccount && (
+        <Modal
+          title="로그인, 로그아웃"
+          contents="로그아웃 하시겠습니까?"
+          btnContents={['취소', '확인']}
+          onConfirm={handleModalConfirm}
+        />
+      )}
     </>
   );
 };
