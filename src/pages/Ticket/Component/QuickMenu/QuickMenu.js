@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import Common from '../../../../components/Common/Common';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { APIS } from '../../../../config';
+import Common from '../../../../components/Common/Common';
 
 const QuickMenu = ({ changeTicket, selectInfo, showTheater, resetSelectd }) => {
   const {
+    movie,
     korName,
     grade,
     region,
@@ -14,15 +17,45 @@ const QuickMenu = ({ changeTicket, selectInfo, showTheater, resetSelectd }) => {
     seat,
     imageUrl,
     totalPrice,
+    screeningRoom,
   } = selectInfo;
   const { ImgGobal, IcoMovie } = Common;
   const [selected, setselected] = useState();
   const isAllSeledted =
     korName && grade && region && cinemaName && hallType && date && time;
+  let token = localStorage.getItem('token');
 
-  const handelCheck = e => {
+  const navigate = useNavigate();
+
+  const handleCheck = e => {
     setselected(e.target.value);
   };
+
+  const sendBookingInfo = e => {
+    fetch(APIS.reservationAll, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        seatNumber: seat,
+        date: date,
+        time: time,
+        movie: movie,
+        cinemaName: cinemaName,
+        screeningRoom: screeningRoom,
+        hallType: hallType,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message === 'RESERVATION_CREATED') {
+          navigate('/');
+        }
+      });
+  };
+
   return (
     <TotalWrap>
       <InnerTotal>
@@ -101,7 +134,7 @@ const QuickMenu = ({ changeTicket, selectInfo, showTheater, resetSelectd }) => {
                   id={pay}
                   value={pay}
                   checked={selected === pay}
-                  onChange={handelCheck}
+                  onChange={handleCheck}
                 />
                 <InpLabel htmlFor={pay}>
                   <IcoMovie
@@ -127,15 +160,17 @@ const QuickMenu = ({ changeTicket, selectInfo, showTheater, resetSelectd }) => {
                 isAllSeledted ? '-120px -130px' : '0px -130px'
               }
             >
-              결제하기
+              좌석선택
             </IcoMovie>
           </button>
         ) : (
-          <button disabled={seat.length} onClick={changeTicket}>
+          <button disabled={seat.length === 0} onClick={sendBookingInfo}>
             <IcoMovie
               width="105px"
               height="105px"
-              backgroundPosition={seat.length ? '-120px -240px' : '0px -240px'}
+              backgroundPosition={
+                seat.length === 0 ? '0px -240px' : '-120px -240px'
+              }
             >
               결제하기
             </IcoMovie>

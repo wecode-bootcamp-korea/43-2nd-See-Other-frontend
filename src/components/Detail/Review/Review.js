@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { APIS } from '../../../config';
 import Common from '../../Common/Common';
 
-function Review({ rating, nickname, comment, onDelete, id }) {
+function Review({ rating, nickname, comment, onDelete, id, setContent }) {
   const { ScreenOut, IcoMovie } = Common;
   const [modify, setModify] = useState(false);
   const [editedTitle, setEditedTitle] = useState(''); // 수정된 댓글 내용
@@ -29,7 +29,7 @@ function Review({ rating, nickname, comment, onDelete, id }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    fetch(APIS.modify, {
+    fetch(APIS.review, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -40,8 +40,21 @@ function Review({ rating, nickname, comment, onDelete, id }) {
         comment: editedTitle, // 코멘트
       }),
     }).then(response => {
-      setModify(false);
-      setEditedTitle('');
+      if (response.ok) {
+        fetch(`${APIS.review}/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            alert('수정이 완료되었습니다');
+            setModify(false);
+            setEditedTitle('');
+            setEditedTitle(data.result[0].comment);
+          });
+      }
     });
   };
 

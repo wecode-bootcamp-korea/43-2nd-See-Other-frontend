@@ -86,7 +86,7 @@ const StyledSlider = styled(Slider)`
     width: 30px;
     height: 30px;
     background: url(../images/IcoMovie.svg) no-repeat;
-    background-position: 0px -23px;
+    background-position: 0px -20px;
     font-size: 0;
     line-height: 0;
     overflow: hidden;
@@ -101,7 +101,7 @@ const StyledSlider = styled(Slider)`
     font-size: 0;
     line-height: 0;
     background: url(../images/IcoMovie.svg) no-repeat;
-    background-position: -30px -23px;
+    background-position: -30px -20px;
     overflow: hidden;
     text-indent: -9999px;
     vertical-align: top;

@@ -7,15 +7,14 @@ import FilterBox from '../FilterBox/FilterBox';
 import TicketBtn from '../TicketBtn/TicketBtn';
 import Common from '../../../../components/Common/Common';
 
-const Theater = ({ handleValue, selectInfo }) => {
+const Theater = ({ handleValue, handleChange, selectInfo, newdate }) => {
+  const { Thead } = Common;
+  const { movie, cinemaName, hallType, date, time, seat } = selectInfo;
+
   const [dataList, setDataList] = useState([]);
   const [filterList, setFilterList] = useState([]);
   const [timeList, setTimeList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newdate, setNewDate] = useState(new Date(Date.parse('2023-04-07')));
-  const { Thead } = Common;
-  const { movie, cinemaName, hallType, date, time, seat, totalPrice } =
-    selectInfo;
 
   const ischecked =
     selectInfo.movie === '' &&
@@ -29,22 +28,6 @@ const Theater = ({ handleValue, selectInfo }) => {
     selectInfo.cinemaName &&
     selectInfo.hallType &&
     selectInfo.date;
-
-  const options = {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    minimumIntegerDigits: 1,
-    useGrouping: false,
-  };
-
-  const formattedDate = newdate.toLocaleDateString('ko-KR', options);
-  const saveDate = formattedDate.replace(/\s|\.$/g, '');
-
-  const handleChange = date => {
-    setNewDate(date);
-    handleValue('date', saveDate);
-  };
 
   useEffect(() => {
     const values = {
@@ -77,14 +60,12 @@ const Theater = ({ handleValue, selectInfo }) => {
           .then(datas => {
             setDataList(datas.getOptions);
             setFilterList(datas.getOptions);
-            handleValue('date', saveDate.toString());
             setLoading(false);
           })
       : fetch(`${APIS.reservationAll}?${queryParams}`)
           .then(res => res.json())
           .then(datas => {
             setFilterList(datas.getOptions);
-            handleValue('date', saveDate);
             setLoading(false);
           });
 
@@ -95,7 +76,7 @@ const Theater = ({ handleValue, selectInfo }) => {
           setTimeList(datas.getTimes);
           setLoading(false);
         });
-  }, [ischecked, saveDate, handleValue, isVisible, selectInfo]);
+  }, [ischecked, selectInfo]);
 
   if (loading) return <div>loading</div>;
 
@@ -181,7 +162,6 @@ const Theater = ({ handleValue, selectInfo }) => {
             showNeighboringMonth={false}
             prev2Label=""
             next2Label=""
-            onClickDay={() => handleValue('date', newdate)}
           />
         </StyledCalendar>
       </OptionBox>

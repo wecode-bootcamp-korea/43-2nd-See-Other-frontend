@@ -30,7 +30,8 @@ const Kakao = () => {
           .then(list => {
             if (list.accessToken) {
               localStorage.setItem('token', list.accessToken);
-              // localStorage.setItem('nickname', list.accessToken);
+              localStorage.setItem('nickname', list.userNickname);
+              localStorage.setItem('userAgeRange', list.userAgeRange);
               navigate('/');
             } else {
               setIsAccess(!isAccess);

@@ -2,20 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import Common from '../Common/Common';
 
-const MyTicket = ({ setIsOpenModal }) => {
+const MyTicket = ({ setIsOpenModal, ticketInfo, endTime }) => {
   const { IcoMovie } = Common;
+  const {
+    movieName,
+    cinemaName,
+    seatNumber,
+    date,
+    image_url,
+    startTime,
+    reservationNumber,
+  } = ticketInfo;
+
+  const seatList = seatNumber?.replace(/[[\]"]/g, '');
 
   return (
     <DetailBg>
       <MovieDetail>
         <TicketBook>
           <ImgWrap>
-            <TicketImg src="images/movie01.jpg" />
+            <TicketImg src={image_url} />
           </ImgWrap>
           <TicketBookAnne>
             <BoxReservation>
               <TicketBookNumber>예매번호</TicketBookNumber>
-              <EmphNumber>3396467</EmphNumber>
+              <EmphNumber>{reservationNumber}</EmphNumber>
             </BoxReservation>
             <TxtReservation>
               위의 예매번호로 해당 극장에서
@@ -27,23 +38,21 @@ const MyTicket = ({ setIsOpenModal }) => {
         <TicketDetail>
           <TicketBox>
             <TitTicket>영화제목 : </TitTicket>
-            <TxtTicket>더 퍼스트 슬램덩크</TxtTicket>
+            <TxtTicket>{movieName}</TxtTicket>
           </TicketBox>
           <TicketBox>
             <TitTicket>극장이름 : </TitTicket>
-            <TxtTicket>CGV 강남</TxtTicket>
+            <TxtTicket>SEO {cinemaName}</TxtTicket>
           </TicketBox>
           <TicketBox>
             <TitTicket>관람일시 : </TitTicket>
-            <TxtTicket>2023.3.31(금)11:00</TxtTicket>
-          </TicketBox>
-          <TicketBox>
-            <TitTicket>관람인원 : </TitTicket>
-            <TxtTicket>2명</TxtTicket>
+            <TxtTicket>
+              {date} {startTime} ~ {endTime}
+            </TxtTicket>
           </TicketBox>
           <TicketBox>
             <TitTicket>관람좌석 : </TitTicket>
-            <TxtTicket>G3, G4</TxtTicket>
+            <TxtTicket>{seatList}</TxtTicket>
           </TicketBox>
         </TicketDetail>
         <BtnClose
@@ -130,10 +139,6 @@ const TitTicket = styled.div`
 const TxtTicket = styled.div`
   line-height: 35px;
 `;
-const TicketWrap = styled.div`
-  background-color: #f6f6f6;
-  padding: 10px 0px;
-`;
 
 const DetailBg = styled.div`
   z-index: 11000;
@@ -152,7 +157,7 @@ const MovieDetail = styled.aside`
   overflow-y: auto;
   box-sizing: border-box;
   width: 500px;
-  height: 485px;
+  height: 450px;
   border-radius: 25px;
   background: #fff;
   overscroll-behavior-y: contain;

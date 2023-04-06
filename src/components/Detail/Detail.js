@@ -18,7 +18,7 @@ const Detail = ({ setIsOpenModal, id }) => {
   };
 
   useEffect(() => {
-    fetch(APIS.movies`/${id}`, {
+    fetch(`${APIS.movies}/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
@@ -31,20 +31,17 @@ const Detail = ({ setIsOpenModal, id }) => {
   }, [id]);
 
   useEffect(() => {
-    fetch(APIS.read, {
-      method: 'POST',
+    fetch(`${APIS.review}/${id}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({
-        movieId: id, // 무비아이디
-      }),
     })
       .then(response => response.json())
       .then(data => {
         setComments(data.result);
       });
-  }, []);
+  }, [id]);
 
   return (
     <DetailBg

@@ -39,7 +39,7 @@ const FormReview = ({ onSubmit, setContent, comment, id }) => {
     } else {
       setDisabled(false);
     }
-  }, []);
+  }, [tokenReview]);
 
   return (
     <ReviewFrom onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>

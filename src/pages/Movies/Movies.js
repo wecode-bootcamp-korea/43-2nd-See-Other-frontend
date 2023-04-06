@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { BASE_URL } from '../../config';
+import {
+  newMovie1,
+  newMovie2,
+  newMovie3,
+  newMovie4,
+  newMovie5,
+  newMovie6,
+} from './NEW_MOVIE';
 import styled from 'styled-components';
 import SelectOption from '../../components/SelectOption/SelectOption';
 import Movie from '../../components/Movie/Movie';
@@ -30,18 +38,24 @@ const Movies = () => {
   const filterAPI = `${BASE_URL}/movies?movieStatusesId=${onScreen}&filter=${optionValue}`;
 
   useEffect(() => {
-    fetch(
-      `http://10.58.52.102:3000/movies?movieStatusesId=${onScreen}&filter=${optionValue}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
-        },
-      }
-    )
+    fetch(filterAPI, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8', //필수로 넣어야함
+      },
+    })
       .then(res => res.json())
       .then(data => {
-        setMovieList(data.movieList);
+        const newMovieList = [
+          ...data.movieList,
+          newMovie1,
+          newMovie2,
+          newMovie3,
+          newMovie4,
+          newMovie5,
+          newMovie6,
+        ];
+        setMovieList(newMovieList);
       });
   }, [filterAPI]);
 

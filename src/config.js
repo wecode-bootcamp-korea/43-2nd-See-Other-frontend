@@ -1,12 +1,11 @@
+// http://10.58.52.153:8080/
 export const BASE_URL = 'http://10.58.52.102:3000';
 export const APIS = {
   signup: `${BASE_URL}/users/kakao/sign-in`,
-  review: `${BASE_URL}/review/create`,
-  modify: `${BASE_URL}/review/update`,
-  delete: `${BASE_URL}/review/delete`,
-  read: `${BASE_URL}/review/read`,
+  review: `${BASE_URL}/reviews`,
   movies: `${BASE_URL}/movies/details`,
-  reservationAll: `${BASE_URL}/reservation`,
-  time: `${BASE_URL}/reservation/times`,
-  seats: `${BASE_URL}/reservation/seats`,
+  reservationAll: `${BASE_URL}/reservations`,
+  time: `${BASE_URL}/reservations/times`,
+  seats: `${BASE_URL}/reservations/seats`,
+  user: `${BASE_URL}/reservations/user`,
 };

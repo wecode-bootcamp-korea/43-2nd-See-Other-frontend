@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Common from '../../../components/Common/Common';
 import { CATE_MENU } from './CATE_MENU.js';
 import MyTicket from '../../../components/MyTicket/MyTicket';
 
-const SeoGroupHead = ({ isFixed }) => {
+const SeoGroupHead = ({
+  isFixed,
+  userToken,
+  isOpenModal,
+  setIsOpenModal,
+  ticketInfo,
+  endTime,
+}) => {
   const { IcoMovie, ScreenOut } = Common;
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const { movieName, cinemaName, seatNumber, date, roomNumber, startTime } =
+    ticketInfo;
+  const seatList = seatNumber?.replace(/[[\]"]/g, '');
 
-  const handleModal = () => {
-    setIsOpenModal(prev => !prev);
-  };
   return (
     <>
       <GroupHead className={isFixed && 'fixed'}>
@@ -38,25 +44,49 @@ const SeoGroupHead = ({ isFixed }) => {
               </li>
             ))}
           </ListMenu>
-          <LinkMyTicket to="#" onClick={() => setIsOpenModal(true)}>
-            <ScreenOut>나의 예매정보 : </ScreenOut>
-            <ScreenOut>관람 영화 : </ScreenOut> 아부타 냠냠길{' '}
-            <ScreenOut>관람 극장 : </ScreenOut> / 선릉 2관{' '}
-            <ScreenOut>관람 좌석 : </ScreenOut> G3, G4
-            <ScreenOut>관람 일시 : </ScreenOut> / 99-12-31 &#40;일&#41; 10:30
-            <ScreenOut>관람 인원 : </ScreenOut> / 성인 2명
-            <IcoMovie
-              width="6px"
-              height="9px"
-              backgroundPosition={isFixed ? '-240px 0' : '-230px 0'}
-              margin="12px"
-            >
-              나의 예매정보 더보러가기
-            </IcoMovie>
+          <LinkMyTicket
+            onClick={() => {
+              setIsOpenModal(true);
+            }}
+          >
+            {userToken ? (
+              <>
+                <ScreenOut>나의 예매정보 : </ScreenOut>
+                <ScreenOut>관람 영화 : </ScreenOut> {movieName}&nbsp;
+                <ScreenOut>관람 극장 : </ScreenOut> / {cinemaName} {roomNumber}
+                관 <ScreenOut>관람 좌석 : </ScreenOut>
+                &nbsp;{seatList}&nbsp;
+                <ScreenOut>관람 일시 : </ScreenOut> / {date} &#40;일&#41;{' '}
+                {startTime}
+                <IcoMovie
+                  width="6px"
+                  height="9px"
+                  backgroundPosition={isFixed ? '-240px 0' : '-230px 0'}
+                  margin="12px"
+                >
+                  나의 예매정보 더보러가기
+                </IcoMovie>
+              </>
+            ) : (
+              '예매정보는 로그인 후 확인 가능합니다.'
+            )}
           </LinkMyTicket>
         </BunchHead>
       </GroupHead>
-      {isOpenModal && <MyTicket setIsOpenModal={setIsOpenModal} />}
+      {isOpenModal && (
+        <MyTicket
+          setIsOpenModal={setIsOpenModal}
+          ticketInfo={ticketInfo}
+          endTime={endTime}
+        />
+      )}
+      {/* {userToken === null && (
+        <Modal
+          title="로그인안내"
+          contents="로그인 후 이용해주세요."
+          btnContents={['취소']}
+        />
+      )} */}
     </>
   );
 };
